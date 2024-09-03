@@ -6,6 +6,7 @@ namespace Jsm33t.Repositories
     public interface IUserRepository
     {
         public Task<User_ClaimsResponse> UserLogin(User_LoginRequest request);
+        public Task<DbResult> UserVerify(User_VerifyRequest request);
         public Task<(DbResult, User_ClaimsResponse)> UserSignup(User_SignupRequest request);
     }
 }

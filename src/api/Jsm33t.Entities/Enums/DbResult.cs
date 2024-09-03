@@ -12,6 +12,7 @@ namespace Jsm33t.Entities.Enums
         Conflict = -1,
         NotFound = -2,
         Conflict_B = -11,
+        Error = 1
 
 
     }

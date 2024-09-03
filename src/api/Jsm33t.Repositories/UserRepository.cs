@@ -54,6 +54,17 @@ namespace Jsm33t.Repositories
             return (result, user);
         }
 
+        public async Task<DbResult> UserVerify(User_VerifyRequest request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@Username", request.Username, DbType.String, ParameterDirection.Input);
+            parameters.Add("@OTP", request.OTP, DbType.String, ParameterDirection.Input);
+
+            var results = await _dbConnection.QueryAsync<int>("sproc_UserVerifyAndUpdate", parameters, commandType: CommandType.StoredProcedure);
+
+            return (DbResult)results.FirstOrDefault();
+        }
+
 
     }
 }
