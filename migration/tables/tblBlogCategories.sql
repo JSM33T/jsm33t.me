@@ -1,4 +1,3 @@
-use [almondcove_db]
 CREATE TABLE [dbo].[tblBlogCategories]
 (
     Id				INT 

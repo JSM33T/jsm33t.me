@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Player with Panning Control</title>
+<style>
+    .panning-slider {
+        width: 100%;
+    }
+</style>
+</head>
+<body>
+<audio id="audioPlayer" controls>
+    <source src="your-audio-file.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<input type="range" class="panning-slider" min="-1" max="1" step="0.1" value="0" id="panningRange">
+
+<button id="playButton">Play</button>
+
+<script>
+    let audioCtx;
+    let source;
+    let panner;
+
+    const audio = document.getElementById('audioPlayer');
+    const playButton = document.getElementById('playButton');
+    const panningControl = document.getElementById('panningRange');
+
+    playButton.addEventListener('click', function() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            source = audioCtx.createMediaElementSource(audio);
+            panner = audioCtx.createStereoPanner();
+            source.connect(panner).connect(audioCtx.destination);
+        }
+        audio.play();
+    });
+
+    panningControl.addEventListener('input', function() {
+        if (panner) {
+            panner.pan.value = this.value;
+        }
+    });
+</script>
+</body>
+</html>

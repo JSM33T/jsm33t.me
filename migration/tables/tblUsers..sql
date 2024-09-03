@@ -46,4 +46,3 @@ CREATE TABLE [dbo].[tblUsers]
 
     CONSTRAINT      UQ_User_Username UNIQUE (Username)
 );
-GO

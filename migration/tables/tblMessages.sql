@@ -1,5 +1,3 @@
-use [almondcove_db]
-
 CREATE TABLE [dbo].[tblMessages]
 (
 	---------------------
@@ -27,4 +25,3 @@ CREATE TABLE [dbo].[tblMessages]
 
     CONSTRAINT      UQ_MessageContent	UNIQUE (Content)
 );
-GO

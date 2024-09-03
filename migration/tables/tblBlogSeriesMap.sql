@@ -12,4 +12,3 @@ CREATE TABLE [dbo].[tblBlogSeriesMap]
 
     CONSTRAINT PK_BlogSeriesMap PRIMARY KEY (Id)
 );
-GO

@@ -31,10 +31,6 @@ BEGIN
     FROM tblUsers
     WHERE Username = @Username AND [Password] = @Password;
 END
-
-GO
-
-
 --DECLARE @Result INT;
 
 --EXEC [dbo].[sproc_UserSignup]

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Audio Visualizer with Reflections</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #thefile { position: absolute; top: 10px; left: 10px; z-index: 100; }
+        #canvas { position: fixed; left: 0; top: 0; width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+    <input type="file" id="thefile" accept="audio/*" />
+    <audio id="audio" controls style="display:none;"></audio>
+    <canvas id="canvas"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+    window.onload = function() {
+        var file = document.getElementById("thefile");
+        var audio = document.getElementById("audio");
+        var container = document.getElementById("canvas");
+
+        var scene, camera, renderer;
+        var analyser, uniforms;
+        var bars = [];
+        var particles = [];
+        var particleSystem;
+        var floor;
+
+        var fftSize = 128;
+
+        // Camera control variables
+        var mouseX = 0, mouseY = 0;
+        var targetRotationX = 0, targetRotationY = 0;
+        var windowHalfX = window.innerWidth / 2;
+        var windowHalfY = window.innerHeight / 2;
+
+        // Three.js setup
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 50, 100);
+            camera.lookAt(0, 0, 0);
+
+            renderer = new THREE.WebGLRenderer({ canvas: container, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+            // Create circular arrangement of bars
+            var radius = 50;
+            var barGeometry = new THREE.BoxGeometry(1, 1, 1);
+            var barMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x00ffff, 
+                metalness: 0.5,
+                roughness: 0.2
+            });
+
+            for (var i = 0; i < fftSize / 2; i++) {
+                var angle = (i / (fftSize / 2)) * Math.PI * 2;
+                var bar = new THREE.Mesh(barGeometry, barMaterial);
+                bar.position.set(
+                    radius * Math.cos(angle),
+                    0,
+                    radius * Math.sin(angle)
+                );
+                bar.rotation.y = angle;
+                bar.castShadow = true;
+                scene.add(bar);
+                bars.push(bar);
+            }
+
+            // Create particle system
+            var particleGeometry = new THREE.BufferGeometry();
+            var particleMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.3,
+                blending: THREE.AdditiveBlending,
+                transparent: true
+            });
+
+            var particlePositions = new Float32Array(fftSize * 3);
+            var particleVelocities = new Float32Array(fftSize * 3);
+
+            for (var i = 0; i < fftSize; i++) {
+                var x = Math.random() * 100 - 50;
+                var y = Math.random() * 50;
+                var z = Math.random() * 100 - 50;
+
+                particlePositions[i * 3] = x;
+                particlePositions[i * 3 + 1] = y;
+                particlePositions[i * 3 + 2] = z;
+
+                particleVelocities[i * 3] = 0;
+                particleVelocities[i * 3 + 1] = -0.1; // Initial downward velocity
+                particleVelocities[i * 3 + 2] = 0;
+
+                particles.push({
+                    velocity: new THREE.Vector3(0, -0.1, 0)
+                });
+            }
+
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+            particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particleSystem);
+
+            // Add a reflective floor
+            var floorGeometry = new THREE.PlaneGeometry(200, 200);
+            var floorMaterial = new THREE.MeshStandardMaterial({
+                color: 0x111111,
+                metalness: 1.8,
+                roughness: 0.1
+            });
+            floor = new THREE.Mesh(floorGeometry, floorMaterial);
+            floor.rotation.x = -Math.PI / 2;
+            floor.position.y = -1;
+            floor.receiveShadow = true;
+            scene.add(floor);
+
+            // Add ambient light
+            var ambientLight = new THREE.AmbientLight(0xffffff);
+            scene.add(ambientLight);
+
+            // Add directional light
+            var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(0, 1, 1).normalize();
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+
+            window.addEventListener('resize', onWindowResize, false);
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+        }
+
+        function onWindowResize() {
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onDocumentMouseMove(event) {
+            mouseX = (event.clientX - windowHalfX) / 100;
+            mouseY = (event.clientY - windowHalfY) / 100;
+        }
+
+        function setupAudioContext() {
+            var context = new (window.AudioContext || window.webkitAudioContext)();
+            var src = context.createMediaElementSource(audio);
+            analyser = context.createAnalyser();
+            src.connect(analyser);
+            analyser.connect(context.destination);
+            analyser.fftSize = fftSize;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Update camera position
+            targetRotationY += (mouseX - targetRotationY) * 0.02;
+            targetRotationX += (mouseY - targetRotationX) * 0.01;
+
+            camera.position.x = 100 * Math.sin(targetRotationY) * Math.cos(targetRotationX);
+            camera.position.y = 100 * Math.sin(targetRotationX);
+            camera.position.z = 100 * Math.cos(targetRotationY) * Math.cos(targetRotationX);
+            camera.lookAt(scene.position);
+
+            if (analyser) {
+                var dataArray = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteFrequencyData(dataArray);
+
+                var positions = particleSystem.geometry.attributes.position.array;
+
+                for (var i = 0; i < bars.length; i++) {
+                    var value = dataArray[i] / 4;
+                    bars[i].scale.y = value + 1;
+                    bars[i].position.y = value / 2;
+
+                    // Update particle position and velocity
+                    var particleIndex = i * 3;
+                    positions[particleIndex + 1] += particles[i].velocity.y;
+
+                    // Bounce off the floor
+                    if (positions[particleIndex + 1] <= 0) {
+                        positions[particleIndex + 1] = 0;
+                        particles[i].velocity.y = Math.abs(particles[i].velocity.y) * 0.9;
+                    }
+
+                    // Apply audio data to particle velocity
+                    particles[i].velocity.y += (value / 10) - 0.1;
+                    particles[i].velocity.y *= 0.99; // Damping
+                }
+
+                particleSystem.geometry.attributes.position.needsUpdate = true;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+        animate();
+
+        file.onchange = function() {
+            var files = this.files;
+            audio.src = URL.createObjectURL(files[0]);
+            audio.load();
+            setupAudioContext();
+            audio.play();
+        };
+    };
+    </script>
+</body>
+</html>

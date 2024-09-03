@@ -16,5 +16,3 @@ CREATE TABLE [dbo].[tblBlogs]
 
     IsActive        BIT             NOT NULL    DEFAULT 1
 );
-
-go

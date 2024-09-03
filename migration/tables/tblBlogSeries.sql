@@ -1,4 +1,3 @@
-
 CREATE TABLE [dbo].[tblBlogSeries]
 (
     Id				INT				PRIMARY KEY,

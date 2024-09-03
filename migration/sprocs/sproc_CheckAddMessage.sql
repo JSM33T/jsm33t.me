@@ -31,4 +31,3 @@ BEGIN
         SET @Result = 0;
     END
 END;
-GO
