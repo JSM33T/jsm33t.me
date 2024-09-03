@@ -1,0 +1,15 @@
+<main class="page-wrapper">
+	<ngx-loading-bar></ngx-loading-bar>
+	<app-loader></app-loader>
+
+	<ng-container *ngIf="shouldRenderNavbar()">
+		<app-navbar></app-navbar>
+	</ng-container>
+
+	<router-outlet></router-outlet>
+
+	@defer{
+	<app-side-panel></app-side-panel>
+	}
+	<app-back-to-top></app-back-to-top>
+</main>

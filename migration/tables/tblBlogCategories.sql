@@ -1,0 +1,16 @@
+use [almondcove_db]
+CREATE TABLE [dbo].[tblBlogCategories]
+(
+    Id				INT 
+					PRIMARY KEY,
+
+    CategoryName	NVARCHAR(128)
+					NOT NULL,
+
+	Slug			NVARCHAR(128)
+					NOT NULL,
+
+    DateAdded		DATETIME 
+					NOT NULL 
+					DEFAULT GETDATE(),
+);

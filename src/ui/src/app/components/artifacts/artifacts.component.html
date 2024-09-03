@@ -1,0 +1,51 @@
+<!-- Services -->
+<section class="container pt-5 pb-xxl-3 mt-5">
+	<!-- Breadcrumb -->
+	<nav aria-label="breadcrumb">
+		<ol class="pt-lg-3 pb-lg-4 pb-2 breadcrumb">
+			<li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Artifacts</li>
+		</ol>
+	</nav>
+
+	<!-- Grid -->
+	<div class="row">
+		<div class="col-lg-4 pb-3 mb-3" data-aos-offset="0" data-aos-duration="500" data-aos-once="true">
+			<h2 class="h1">Artifacts</h2>
+			<p class="pe-5 mb-0">Some artifacts for ya'll.</p>
+		</div>
+		<div class="col-lg-8">
+			<div class="row row-cols-1 row-cols-sm-2 g-4">
+				<div class="col">
+					<!-- Item -->
+					<div *ngFor="let item of cardData" class="card border-0 bg-secondary rounded-5 mb-4" [attr.data-aos]="item.Aos" data-aos-offset="0" [attr.data-aos-duration]="item.Duration" data-aos-once="true">
+						<div class="card-body pb-3">
+							<img height="40" width="40" src [attr.src]="item.Logo" class="rounded-5 pb-2" />
+							<h3 class="h4">{{ item.Title }}</h3>
+							<p class="mb-0">{{ item.Description }}</p>
+						</div>
+						<div class="card-footer border-0 pt-3 mb-3">
+							<a class="btn btn-icon btn-lg btn-outline-primary rounded-circle stretched-link" href="#" aria-label="Learn more">
+								<i class="ai-arrow-right"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div *ngFor="let item of cardData2" class="card border-0 bg-secondary rounded-5 mb-4" [attr.data-aos]="item.Aos" data-aos-offset="0" [attr.data-aos-duration]="item.Duration" data-aos-once="true">
+						<div class="card-body pb-3">
+							<img height="40" width="40" src [attr.src]="item.Logo" class="rounded-5" class="text-primary" />
+							<h3 class="h4">{{ item.Title }}</h3>
+							<p class="mb-0">{{ item.Description }}</p>
+						</div>
+						<div class="card-footer border-0 pt-3 mb-3">
+							<a class="btn btn-icon btn-lg btn-outline-primary rounded-circle stretched-link" href="#" aria-label="Learn more">
+								<i class="ai-arrow-right"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
