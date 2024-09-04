@@ -1,4 +1,4 @@
-ALTER PROCEDURE [dbo].[sproc_UserSignup]
+CREATE OR ALTER PROCEDURE [dbo].[sproc_UserSignup]
     @Firstname NVARCHAR(50),
     @Lastname NVARCHAR(50),
     @Username NVARCHAR(50),
