@@ -90,6 +90,13 @@ export const routes: Route[] = [
         (m) => m.SignupComponent
       ),
   },
+  {
+    path: 'account/otp',
+    loadComponent: () =>
+      import('./components/account/otp/otp.component').then(
+        (m) => m.OtpComponent
+      ),
+  },
 
   { path: '**', redirectTo: '/' },
 ];

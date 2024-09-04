@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Data;
 using System.Data.Common;
+using Jsm33t.Library;
 
 namespace Jsm33t.Repositories
 {
@@ -45,7 +46,7 @@ namespace Jsm33t.Repositories
             parameters.Add("@Username", request.Username, DbType.String, ParameterDirection.Input);
             parameters.Add("@Email", request.Email, DbType.String, ParameterDirection.Input);
             parameters.Add("@Password", request.Password, DbType.String, ParameterDirection.Input);
-            parameters.Add("@otp", "0000", DbType.String, ParameterDirection.Input);
+            parameters.Add("@otp",await Crypto.GenerateOTP(), DbType.String, ParameterDirection.Input);
             parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             using var results = await _dbConnection.QueryMultipleAsync("sproc_UserSignup", parameters, commandType: CommandType.StoredProcedure);
@@ -66,6 +67,22 @@ namespace Jsm33t.Repositories
             var result = parameters.Get<int>("@Result");
             return (DbResult)result;
         }
+
+
+        public async Task<DbResult> UserAccountRecovery(string username)
+        {
+            var otp = await Crypto.GenerateOTP();
+            var parameters = new DynamicParameters();
+            parameters.Add("@UserId", username, DbType.String, ParameterDirection.Input);
+            parameters.Add("@OTP", otp, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            await _dbConnection.ExecuteAsync("sproc_CreateRecovery", parameters, commandType: CommandType.StoredProcedure);
+
+            var result = parameters.Get<int>("@Result");
+            return (DbResult)result;
+        }
+
 
 
     }

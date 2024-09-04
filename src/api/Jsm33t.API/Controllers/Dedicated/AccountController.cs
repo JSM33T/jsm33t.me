@@ -164,5 +164,38 @@ namespace Jsm33t.API.Controllers.Dedicated
         }
         #endregion
 
+        [HttpPost("recover")]
+        [AllowAnonymous]
+        #region User signup
+        public async Task<IActionResult> RecoveryRequest(string username)
+        {
+            return await ExecuteActionAsync(async () =>
+            {
+                int statCode = default;
+                string message = string.Empty;
+                List<string> hints = [];
+                DbResult result;
+
+                result = await _userRepo.UserAccountRecovery(username);
+
+
+                if (result == DbResult.Success)
+                {
+                    message = "Account verified";
+                    statCode = StatusCodes.Status200OK;
+                    hints.Add("Account has been registered");
+                }
+                else
+                {
+                    message = "Invalid OTP";
+                    statCode = StatusCodes.Status400BadRequest;
+                    hints.Add("");
+                }
+
+                return (statCode, result, message, hints);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
+        #endregion
+
     }
 }
