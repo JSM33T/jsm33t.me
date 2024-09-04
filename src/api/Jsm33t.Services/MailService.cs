@@ -10,10 +10,10 @@ namespace Jsm33t.Services
     {
         private readonly SmtpClient _client;
 
-        private readonly IOptionsMonitor<AlmondcoveConfig> _config;
+        private readonly IOptionsMonitor<Jsm33tConfig> _config;
         private readonly SmtpSettings _smtpConfig;
         private readonly ILogger<MailService> _logger;
-        public MailService(IOptionsMonitor<AlmondcoveConfig> config, ILogger<MailService> logger)
+        public MailService(IOptionsMonitor<Jsm33tConfig> config, ILogger<MailService> logger)
         {
             _config = config;
             _logger = logger;

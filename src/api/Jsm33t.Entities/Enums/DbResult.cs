@@ -9,11 +9,10 @@ namespace Jsm33t.Entities.Enums
     public enum DbResult
     {
         Success = 0,
-        Conflict = -1,
-        NotFound = -2,
-        Conflict_B = -11,
-        Error = 1
-
-
+        Error = 1,
+        Conflict = 2,
+        Conflict_B = 22,
+        NotFound = 3,
+        Expired = 4
     }
 }

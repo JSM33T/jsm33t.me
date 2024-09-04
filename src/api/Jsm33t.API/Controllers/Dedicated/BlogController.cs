@@ -11,7 +11,7 @@ namespace Jsm33t.API.Controllers.Dedicated
 {
     [Route("api/blog")]
     [ApiController]
-    public class BlogController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IBlogRepository BlogRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
+    public class BlogController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IBlogRepository BlogRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
     {
         private readonly IBlogRepository _BlogRepo = BlogRepository;
 

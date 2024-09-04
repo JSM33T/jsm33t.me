@@ -9,12 +9,12 @@ namespace Jsm33t.API.Controllers
     [ApiController]
     public abstract class FoundationController : ControllerBase
     {
-        protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
+        protected readonly IOptionsMonitor<Jsm33tConfig> _config;
         protected readonly ILogger _logger;
         protected readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ITelegramService _telegramService;
 
-        public FoundationController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService)
+        public FoundationController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService)
         {
             _config = config;
             _logger = logger;

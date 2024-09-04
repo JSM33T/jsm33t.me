@@ -1,6 +1,6 @@
 ﻿namespace Jsm33t.Entities.Shared
 {
-    public class AlmondcoveConfig
+    public class Jsm33tConfig
     {
         public string ConnectionString { get; set; }
         public CryptographySettings Cryptography { get; set; }

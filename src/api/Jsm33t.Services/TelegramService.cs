@@ -12,11 +12,11 @@ namespace Jsm33t.Services
         private readonly TelegramBotSettings _telebot;
         private readonly ILogger<TelegramService> _logger;
 
-        public TelegramService(IOptionsMonitor<AlmondcoveConfig> config, ILogger<TelegramService> logger)
+        public TelegramService(IOptionsMonitor<Jsm33tConfig> config, ILogger<TelegramService> logger)
         {
             _telebot = config.CurrentValue.TelegramBot;
             _logger = logger;
-            _botClient = new TelegramBotClient(_telebot.BotToken);
+           // _botClient = new TelegramBotClient(_telebot.BotToken);
         }
 
         public async Task SendMessageAsync(string message)

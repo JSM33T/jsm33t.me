@@ -17,7 +17,7 @@ namespace Jsm33t.API.Controllers.Dedicated
 {
     [Route("api/account")]
     [ApiController]
-    public class AccountController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IUserRepository userRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
+    public class AccountController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IUserRepository userRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
     {
         private readonly IUserRepository _userRepo = userRepository;
 

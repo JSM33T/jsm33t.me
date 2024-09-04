@@ -10,12 +10,12 @@ namespace Jsm33t.Repositories
 {
     public class MessageRepository : IMessageRepository
     {
-        protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
+        protected readonly IOptionsMonitor<Jsm33tConfig> _config;
         private readonly IDbConnection _dbConnection;
         protected readonly ILogger _logger;
         private string _conStr;
 
-        public MessageRepository(IOptionsMonitor<AlmondcoveConfig> config, ILogger<MessageRepository> logger, IDbConnection dbConnection)
+        public MessageRepository(IOptionsMonitor<Jsm33tConfig> config, ILogger<MessageRepository> logger, IDbConnection dbConnection)
         {
             _config = config;
             _logger = logger;

@@ -16,7 +16,7 @@ namespace Jsm33t.API.Controllers
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IMailService _mailService;
-        public CoreController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IWebHostEnvironment hostingEnvironment,IMailService mailService) : base(config, logger, httpContextAccessor, telegramService)
+        public CoreController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IWebHostEnvironment hostingEnvironment,IMailService mailService) : base(config, logger, httpContextAccessor, telegramService)
         {
             _hostingEnvironment = hostingEnvironment;
             _mailService = mailService;

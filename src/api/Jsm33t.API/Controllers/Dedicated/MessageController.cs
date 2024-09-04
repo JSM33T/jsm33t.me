@@ -13,7 +13,7 @@ namespace Jsm33t.API.Controllers.Dedicated
 {
     [Route("api/messages")]
     [ApiController]
-    public class MessageController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IMessageRepository messageRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
+    public class MessageController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IMessageRepository messageRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
     {
         private readonly IMessageRepository _messageRepo = messageRepository;
 
