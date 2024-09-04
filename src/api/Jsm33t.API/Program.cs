@@ -57,9 +57,9 @@ else
 }
 
 var Jsm33tConfigSection = builder.Configuration.GetSection("Jsm33tConfig");
-var Jsm33tConfig = builder.Configuration.GetSection("Jsm33tConfig").Get<AlmondcoveConfig>();
+var Jsm33tConfig = builder.Configuration.GetSection("Jsm33tConfig").Get<Jsm33tConfig>();
 
-builder.Services.Configure<AlmondcoveConfig>(Jsm33tConfigSection);
+builder.Services.Configure<Jsm33tConfig>(Jsm33tConfigSection);
 
 builder.Services.AddScoped<IDataService>(provider =>
 {
@@ -156,6 +156,9 @@ builder.Services.AddRateLimiter(options =>
     }
 });
 #endregion
+
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddCors(o => o.AddPolicy("OpenPolicy", builder =>
 {

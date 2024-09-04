@@ -1,8 +1,9 @@
 ﻿
+using Dapper;
 using Jsm33t.Entities.Dedicated;
 using Jsm33t.Entities.DTO;
+using Jsm33t.Entities.Enums;
 using Jsm33t.Entities.Shared;
-using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -86,14 +87,11 @@ namespace Jsm33t.Repositories
             }
             else
             {
-                // Optionally handle the case where no data is found
-                // For example, you can log a message or perform any other specific handling here
+                Blog.Authors = [];
             }
 
             return Blog;
         }
-
-
 
         public async Task<IEnumerable<BlogAuthor>> GetBlogAuthorsByBlogId(int BlogId)
         {
@@ -102,11 +100,24 @@ namespace Jsm33t.Repositories
             // Stored procedure call with Dapper
             var authors = await dbConnection.QueryAsync<BlogAuthor>(
                 "sproc_GetBlogAuthorsByBlogId",
-                new { BlogId = BlogId },
+                new { BlogId },
                 commandType: CommandType.StoredProcedure
             );
 
             return authors;
+        }
+
+        public async Task<DbResult> AddBlogLike(string Slug,int UserId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@Slug", Slug, DbType.String, ParameterDirection.Input);
+            parameters.Add("@UserID", UserId, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            await _dbConnection.ExecuteAsync("sproc_AddBlogLike", parameters, commandType: CommandType.StoredProcedure);
+
+            var result = parameters.Get<DbResult>("@Result");
+            return result;
         }
 
 

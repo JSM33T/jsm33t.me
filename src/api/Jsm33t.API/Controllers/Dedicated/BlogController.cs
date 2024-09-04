@@ -1,9 +1,12 @@
 ﻿using Jsm33t.Entities.Dedicated;
 using Jsm33t.Entities.DTO;
+using Jsm33t.Entities.Enums;
 using Jsm33t.Entities.Shared;
 using Jsm33t.Repositories;
 using Jsm33t.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 
@@ -11,9 +14,10 @@ namespace Jsm33t.API.Controllers.Dedicated
 {
     [Route("api/blog")]
     [ApiController]
-    public class BlogController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IBlogRepository BlogRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
+    public class BlogController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IBlogRepository BlogRepository,IHttpContextService httpContextService) : FoundationController(config, logger, httpContextAccessor, telegramService)
     {
         private readonly IBlogRepository _BlogRepo = BlogRepository;
+        private readonly IHttpContextService _httpContextService = httpContextService;
 
         [HttpPost("search")]
         #region Paginated blogs with search criteria
@@ -113,21 +117,55 @@ namespace Jsm33t.API.Controllers.Dedicated
         }
         #endregion
 
+        //[HttpGet("getcategories")]
+        //[AllowAnonymous]
+        //#region Get categories on side pane
+        //public async Task<IActionResult> GetCategoryStuff()
+        //{
+        //    return await ExecuteActionAsync(async () =>
+        //    {
+        //        int statusCode = default;
+        //        string message = string.Empty;
+        //        List<string> hints = [];
+        //        List<BlogCategory> categories;
+
+        //        categories = await _BlogRepo.GetCategories();
+        //        if (categories.Count > 0)
+        //        {
+        //            message = "retrieved";
+        //            statusCode = StatusCodes.Status200OK;
+        //        }
+
+        //        return (statusCode, categories, message, hints);
+        //    }, MethodBase.GetCurrentMethod().Name);
+        //}
+
+        //#endregion
         [HttpGet("getcategories")]
-        #region Get categories on side pane
-        public async Task<IActionResult> GetCategoryStuff()
+        [AllowAnonymous]
+        public async Task<IActionResult> GetCategoryStuff([FromServices] IMemoryCache memoryCache)
         {
             return await ExecuteActionAsync(async () =>
             {
                 int statusCode = default;
                 string message = string.Empty;
                 List<string> hints = [];
-                List<BlogCategory> categories;
 
-                categories = await _BlogRepo.GetCategories();
-                if (categories.Count > 0)
+                if (!memoryCache.TryGetValue("Categories", out List<BlogCategory> categories))
                 {
-                    message = "retrieved";
+                    categories = await _BlogRepo.GetCategories();
+
+                    if (categories.Count > 0)
+                    {
+                        message = "retrieved";
+                        statusCode = StatusCodes.Status200OK;
+
+                        memoryCache.Set("Categories", categories, TimeSpan.FromMinutes(10)); // Cache for 10 minutes
+                    }
+                }
+                else
+                {
+                    message = "retrieved from cache";
                     statusCode = StatusCodes.Status200OK;
                 }
 
@@ -135,6 +173,29 @@ namespace Jsm33t.API.Controllers.Dedicated
             }, MethodBase.GetCurrentMethod().Name);
         }
 
+
+        [HttpGet("addlike")]
+        [Authorize]
+        #region Get categories on side pane
+        public async Task<IActionResult> AddBlogLike(BlogLikeDTO likeRequest)
+        {
+            return await ExecuteActionAsync(async () =>
+            {
+                int statusCode = default;
+                string message = string.Empty;
+                List<string> hints = [];
+                DbResult result = default;
+
+                int UserId = _httpContextService.GetUserId();
+
+                result = await _BlogRepo.AddBlogLike(likeRequest.Slug,UserId);
+
+                return (statusCode, 0, message, hints);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
+
         #endregion
+   
+   
     }
 }
