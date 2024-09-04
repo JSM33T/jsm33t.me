@@ -15,7 +15,13 @@ BEGIN
     -- Check if the username already exists
     IF EXISTS (SELECT 1 FROM tblUsers WHERE Username = @Username)
     BEGIN
-        SET @Result = -1; -- Duplicate username
+        SET @Result = 2; -- Duplicate username
+        RETURN;
+    END
+
+     IF EXISTS (SELECT 1 FROM tblUsers WHERE Email = @Email)
+    BEGIN
+        SET @Result = 22; -- Duplicate Email
         RETURN;
     END
 

@@ -44,5 +44,6 @@ CREATE TABLE [dbo].[tblUsers]
 
     CONSTRAINT      PK_UserTable PRIMARY KEY (Id),
 
-    CONSTRAINT      UQ_User_Username UNIQUE (Username)
+    CONSTRAINT      UQ_User_Username UNIQUE (Username),
+	CONSTRAINT      UQ_User_Email UNIQUE (Email)
 );

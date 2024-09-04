@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE sproc_CheckAndAddMessage
+CREATE OR ALTER PROCEDURE [dbo].[sproc_CheckAndAddMessage]
     @Content    NVARCHAR(512),
     @Name       NVARCHAR(128) = 'anonymous',
     @Email      NVARCHAR(128) = 'na',
@@ -15,7 +15,7 @@ BEGIN
                WHERE Content = @Content AND Email = @Email)
     BEGIN
         -- Message with same content and email exists, set result to -1
-        SET @Result = -1;
+        SET @Result = 2;
     END
     ELSE
     BEGIN

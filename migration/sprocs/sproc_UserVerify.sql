@@ -1,6 +1,7 @@
 CREATE OR ALTER PROCEDURE dbo.sproc_UserVerifyAndUpdate
     @Username NVARCHAR(255),
-    @OTP NVARCHAR(255)
+    @OTP NVARCHAR(255),
+    @Result INT OUTPUT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -17,15 +18,15 @@ BEGIN
     END;
 
     IF @IsVerified = 1
-    BEGIN
-        UPDATE tblUsers
-        SET IsVerified = 1
-        WHERE Username = @Username AND OTP = @OTP;
-        
-        SELECT 0 AS [VerificationResult]; -- Return 1 for user verified
-    END
+        BEGIN
+            UPDATE tblUsers
+            SET IsVerified = 1
+            WHERE Username = @Username AND OTP = @OTP;
+            
+            SET @Result = 0;
+        END
     ELSE
-    BEGIN
-        SELECT 1 AS [VerificationResult]; -- Return 0 for user not verified
-    END
+        BEGIN
+            SET @Result = 1;
+        END
 END
