@@ -10,7 +10,7 @@
 
 # except Exception as e:
 #     # Log the error
-#     with open('error.log', 'a') as f:
+#     with open('scripts/logs/error.log', 'a') as f:
 #         f.write(f"An error occurred: {str(e)}\n")
 #         traceback.print_exc(file=f)
 
