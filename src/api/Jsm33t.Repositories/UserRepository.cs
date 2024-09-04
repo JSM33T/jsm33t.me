@@ -11,12 +11,12 @@ namespace Jsm33t.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
+        protected readonly IOptionsMonitor<Jsm33tConfig> _config;
         private readonly IDbConnection _dbConnection;
         protected readonly ILogger _logger;
         private readonly string _conStr;
 
-        public UserRepository(IOptionsMonitor<AlmondcoveConfig> config, ILogger<MessageRepository> logger, IDbConnection dbConnection)
+        public UserRepository(IOptionsMonitor<Jsm33tConfig> config, ILogger<MessageRepository> logger, IDbConnection dbConnection)
         {
             _config = config;
             _logger = logger;
@@ -59,10 +59,12 @@ namespace Jsm33t.Repositories
             var parameters = new DynamicParameters();
             parameters.Add("@Username", request.Username, DbType.String, ParameterDirection.Input);
             parameters.Add("@OTP", request.OTP, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-            var results = await _dbConnection.QueryAsync<int>("sproc_UserVerifyAndUpdate", parameters, commandType: CommandType.StoredProcedure);
+            await _dbConnection.ExecuteAsync("sproc_UserVerifyAndUpdate", parameters, commandType: CommandType.StoredProcedure);
 
-            return (DbResult)results.FirstOrDefault();
+            var result = parameters.Get<int>("@Result");
+            return (DbResult)result;
         }
 
 

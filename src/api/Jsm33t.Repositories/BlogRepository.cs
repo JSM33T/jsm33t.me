@@ -12,12 +12,12 @@ namespace Jsm33t.Repositories
 {
     public class BlogRepository : IBlogRepository
     {
-        protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
+        protected readonly IOptionsMonitor<Jsm33tConfig> _config;
         private readonly IDbConnection _dbConnection;
         protected readonly ILogger _logger;
         private string _conStr;
 
-        public BlogRepository(IOptionsMonitor<AlmondcoveConfig> config, ILogger<BlogRepository> logger, IDbConnection dbConnection)
+        public BlogRepository(IOptionsMonitor<Jsm33tConfig> config, ILogger<BlogRepository> logger, IDbConnection dbConnection)
         {
             _config = config;
             _logger = logger;
