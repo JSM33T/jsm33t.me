@@ -42,6 +42,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                        {
                             new Claim(ClaimTypes.Email, userClaims.Email),
                             new Claim(ClaimTypes.Role, userClaims.Role),
+                            new Claim("Id", userClaims.UserId.ToString()),
                             new Claim("username", userClaims.FirstName),
                             new Claim("role", userClaims.Role),
                             new Claim("firstname", userClaims.FirstName),

@@ -46,16 +46,24 @@ namespace Jsm33t.Library
 
         private static byte[] ComputeHash(string password, byte[] salt)
         {
-            using (var sha256 = SHA256.Create())
-            {
-                byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
-                byte[] combinedBytes = new byte[passwordBytes.Length + salt.Length];
+            //using (var sha256 = SHA256.Create())
+            //{
+            //    byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+            //    byte[] combinedBytes = new byte[passwordBytes.Length + salt.Length];
 
-                Array.Copy(passwordBytes, 0, combinedBytes, 0, passwordBytes.Length);
-                Array.Copy(salt, 0, combinedBytes, passwordBytes.Length, salt.Length);
+            //    Array.Copy(passwordBytes, 0, combinedBytes, 0, passwordBytes.Length);
+            //    Array.Copy(salt, 0, combinedBytes, passwordBytes.Length, salt.Length);
 
-                return sha256.ComputeHash(combinedBytes);
-            }
+            //    return sha256.ComputeHash(combinedBytes);
+            //}
+
+            byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+            byte[] combinedBytes = new byte[passwordBytes.Length + salt.Length];
+
+            Array.Copy(passwordBytes, 0, combinedBytes, 0, passwordBytes.Length);
+            Array.Copy(salt, 0, combinedBytes, passwordBytes.Length, salt.Length);
+
+            return SHA256.HashData(combinedBytes);
         }
 
         private static bool ByteArraysEqual(byte[] a, byte[] b)

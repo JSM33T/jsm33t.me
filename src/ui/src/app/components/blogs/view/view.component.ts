@@ -59,6 +59,7 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	setProps() {}
+
 	getData() {
 		const response$: Observable<APIResponse<any>> = this.httpService.get(`api/blog/load/${this.year}/${this.slug}`);
 
@@ -78,6 +79,29 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 					}, 100);
 				} else {
 					console.log('no markdown data');
+				}
+				this.isLoading = false;
+			},
+			error: (error) => {
+				console.log(error.error);
+				this.isLoading = false;
+			},
+		});
+	}
+
+
+    likereq = {
+    Slug : "from-radiance-to-ruination"
+    };
+    likeBlog() {
+		const response$: Observable<APIResponse<any>> = this.httpService.post(`api/blog/addlike`,this.likereq);
+        console.log(this.likereq)
+		this.responseHandler.handleResponse(response$, false).subscribe({
+			next: async (response) => {
+              
+				if (response.data) {
+					
+				} else {
 				}
 				this.isLoading = false;
 			},

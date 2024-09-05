@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Reflection;
+using System.Security.Claims;
 
 namespace Jsm33t.API.Controllers.Dedicated
 {
@@ -118,6 +119,7 @@ namespace Jsm33t.API.Controllers.Dedicated
 
         [HttpGet("getcategories")]
         [AllowAnonymous]
+        #region Get Categories
         public async Task<IActionResult> GetCategoryStuff([FromServices] IMemoryCache memoryCache)
         {
             return await ExecuteActionAsync(async () =>
@@ -148,9 +150,9 @@ namespace Jsm33t.API.Controllers.Dedicated
                 return (statusCode, categories, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
+        #endregion
 
-
-        [HttpGet("addlike")]
+        [HttpPost("addlike")]
         [Authorize]
         #region Get categories on side pane
         public async Task<IActionResult> AddBlogLike(BlogLikeDTO likeRequest)
@@ -162,7 +164,9 @@ namespace Jsm33t.API.Controllers.Dedicated
                 List<string> hints = [];
                 DbResult result = default;
 
-                int UserId = 1;
+                Claim userIdClaim = _httpContextAccessor.HttpContext.User.FindFirst("Id");
+                int UserId = userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
+
 
                 result = await _BlogRepo.AddBlogLike(likeRequest.Slug,UserId);
 

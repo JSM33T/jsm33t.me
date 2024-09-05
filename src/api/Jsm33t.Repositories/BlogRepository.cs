@@ -114,7 +114,7 @@ namespace Jsm33t.Repositories
             parameters.Add("@UserID", UserId, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-            await _dbConnection.ExecuteAsync("sproc_AddBlogLike", parameters, commandType: CommandType.StoredProcedure);
+            await _dbConnection.ExecuteAsync("sproc_BlogAddLike", parameters, commandType: CommandType.StoredProcedure);
 
             var result = parameters.Get<DbResult>("@Result");
             return result;
