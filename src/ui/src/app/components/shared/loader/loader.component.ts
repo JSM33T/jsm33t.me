@@ -72,7 +72,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
 
 		this.responseHandler.handleResponse(response$, false).subscribe({
 			next: (response) => {
-				console.log(response);
+				//console.log(response);
 				this.stopTextRotation();
 				if (response.status == 200) {
 					this.completeLoading();

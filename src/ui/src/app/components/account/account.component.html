@@ -1,1 +1,13 @@
-<p>account works!</p>
+<div class="d-lg-flex position-relative h-100">
+	<app-home-button></app-home-button>
+	<!-- Sign in form -->
+	<div class="d-flex flex-column align-items-center w-lg-50 h-100 px-3 px-lg-5 pt-5">
+		<router-outlet></router-outlet>
+		<!-- Copyright -->
+		<p class="nav w-100 fs-sm pt-5 mt-auto mb-5" style="max-width: 526px">
+			<span class="text-body-secondary">&copy; All rights reserved. Made by</span>
+			<a class="nav-link d-inline-block p-0 ms-1" href="https://createx.studio/" target="_blank" rel="noopener">Createx Studio</a>
+		</p>
+	</div>
+	<div class="w-50 bg-size-cover bg-repeat-0 bg-position-center" style="background-image: url(assets/images/covers/login.jpg)"></div>
+</div>

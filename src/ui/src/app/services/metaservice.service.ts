@@ -72,7 +72,7 @@ export class MetaTagManagerService {
 			const metaTagsUrl = `assets/data/meta/${fullPath}.json`;
 			return this.http.get<IMetaTags>(metaTagsUrl).pipe(
 				catchError((error) => {
-					console.error('Error fetching meta tags:', error);
+					//console.error('Error fetching meta tags:', error);
 					return of({} as IMetaTags);
 				})
 			);

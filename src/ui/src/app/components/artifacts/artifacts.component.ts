@@ -1,12 +1,12 @@
 import { NgFor } from '@angular/common';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import initAOS, { cleanAOS } from '../../library/invokers/animate-on-scroll';
 
 @Component({
 	selector: 'app-artifacts',
 	standalone: true,
-	imports: [RouterModule, NgFor],
+	imports: [RouterModule, NgFor,RouterOutlet],
 	templateUrl: './artifacts.component.html',
 	styleUrl: './artifacts.component.css',
 })

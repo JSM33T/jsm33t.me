@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 
 @Injectable({
@@ -23,5 +23,15 @@ export class HttpService {
     // Function to post data to the API
     post<T>(endpoint: string, data: any, options?: { headers?: HttpHeaders }): Observable<T> {
         return this.http.post<T>(`${this.apiUrl}/${endpoint}`, data, options);
+    }
+
+    //Function to read and map json file
+    readJsonFile<T>(filePath: string): Observable<T> {
+        return this.http.get<T>(filePath).pipe(
+            map(response => {
+                // You can add any additional processing here if needed
+                return response as T;
+            })
+        );
     }
 }
