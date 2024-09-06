@@ -5,20 +5,18 @@ import Initswiper from '../../library/invokers/swiper';
 import { RouterLink } from '@angular/router';
 import initAOS, { cleanAOS } from '../../library/invokers/animate-on-scroll';
 import { environment } from '../../../environment/environment';
-import { NgOptimizedImage } from '@angular/common'
+import { NgOptimizedImage } from '@angular/common';
 import studioItems from '../../collections/studioitems';
 
 @Component({
-	selector: 'app-studio',
-	standalone: true,
-	imports: [NgFor,RouterLink,NgOptimizedImage  ],
-	templateUrl: './studio.component.html',
-	styleUrl: './studio.component.css',
-  providers:[]
+  selector: 'app-studio',
+  standalone: true,
+  imports: [NgFor, RouterLink, NgOptimizedImage],
+  templateUrl: './studio.component.html',
+  styleUrl: './studio.component.css',
+  providers: [],
 })
-export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
-
-  
+export class StudioComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit(): void {
     this.cleanupFn = InitMasonryGrid();
   }
@@ -29,8 +27,8 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
   }
 
   private cleanupFn?: () => void;
-  assetLocation : string =  "assets/content/studio/"
- items = studioItems;
+  assetLocation: string = 'assets/content/studio/';
+  items = studioItems;
   // items = [
   //   {
   //     imgSrc: 'singles/melancholy/assets/cover_thumb.jpg',
@@ -83,5 +81,4 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
   getGroupsJson(groups: string[]): string {
     return JSON.stringify(groups);
   }
-
 }

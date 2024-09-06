@@ -8,9 +8,8 @@ describe('RecoveryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RecoveryComponent]
-    })
-    .compileComponents();
+      imports: [RecoveryComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RecoveryComponent);
     component = fixture.componentInstance;

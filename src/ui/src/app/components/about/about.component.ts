@@ -5,10 +5,6 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-about',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './about.component.html'
+  templateUrl: './about.component.html',
 })
-export class AboutComponent {
-
-  
-
-}
+export class AboutComponent {}

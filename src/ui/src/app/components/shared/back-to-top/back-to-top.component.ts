@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './back-to-top.component.html',
-  styleUrl: './back-to-top.component.css'
+  styleUrl: './back-to-top.component.css',
 })
-export class BackToTopComponent {
-
-}
+export class BackToTopComponent {}

@@ -8,15 +8,6 @@
         "useTabs": true,
         "htmlWhitespaceSensitivity": "ignore"
       }
-    },
-    {
-      "files": "*.ts",
-      "options": {
-        "printWidth": 512,
-        "tabWidth": 4,
-        "useTabs": true,
-        "htmlWhitespaceSensitivity": "ignore"
-      }
     }
   ]
 }

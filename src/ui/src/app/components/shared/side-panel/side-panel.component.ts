@@ -6,13 +6,10 @@ import { disableAOS } from '../../../library/invokers/animate-on-scroll';
   standalone: true,
   imports: [],
   templateUrl: './side-panel.component.html',
-  styleUrl: './side-panel.component.css'
+  styleUrl: './side-panel.component.css',
 })
 export class SidePanelComponent {
-
-
-  disableAnimations()
-  {
+  disableAnimations() {
     disableAOS();
   }
 }

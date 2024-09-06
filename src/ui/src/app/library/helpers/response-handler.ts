@@ -29,7 +29,7 @@ export class ResponseHandlerService {
           }
         }
         return of(error);
-      })
+      }),
     );
   }
 }

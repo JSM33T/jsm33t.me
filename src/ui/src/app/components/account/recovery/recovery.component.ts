@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './recovery.component.html',
-  styleUrl: './recovery.component.css'
+  styleUrl: './recovery.component.css',
 })
-export class RecoveryComponent {
-
-}
+export class RecoveryComponent {}

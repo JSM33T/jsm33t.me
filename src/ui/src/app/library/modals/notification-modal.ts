@@ -1,16 +1,16 @@
 declare var bootstrap: any;
 
 export default function acToast(title: string, message: string) {
-    // Create the modal container
-    const modalContainer = document.createElement('div');
-    modalContainer.classList.add('modal', 'fade');
-    modalContainer.setAttribute('tabindex', '-1');
-    modalContainer.setAttribute('role', 'dialog');
-    modalContainer.setAttribute('aria-hidden', 'true');
-    modalContainer.setAttribute('data-bs-backdrop', 'static');
+  // Create the modal container
+  const modalContainer = document.createElement('div');
+  modalContainer.classList.add('modal', 'fade');
+  modalContainer.setAttribute('tabindex', '-1');
+  modalContainer.setAttribute('role', 'dialog');
+  modalContainer.setAttribute('aria-hidden', 'true');
+  modalContainer.setAttribute('data-bs-backdrop', 'static');
 
-    // Set the inner HTML of the modal container using template string
-    modalContainer.innerHTML = `
+  // Set the inner HTML of the modal container using template string
+  modalContainer.innerHTML = `
       <div class="modal-dialog" role="document" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-content">
           <div class="modal-header">
@@ -29,15 +29,15 @@ export default function acToast(title: string, message: string) {
       </div>
     `;
 
-    // Append the modal container to the body
-    document.body.appendChild(modalContainer);
+  // Append the modal container to the body
+  document.body.appendChild(modalContainer);
 
-    // Initialize and show the modal using Bootstrap's JavaScript API
-    const modal = new bootstrap.Modal(modalContainer);
-    modal.show();
+  // Initialize and show the modal using Bootstrap's JavaScript API
+  const modal = new bootstrap.Modal(modalContainer);
+  modal.show();
 
-    // Remove the modal from the DOM after it is hidden
-    modalContainer.addEventListener('hidden.bs.modal', function () {
-        document.body.removeChild(modalContainer);
-    });
+  // Remove the modal from the DOM after it is hidden
+  modalContainer.addEventListener('hidden.bs.modal', function () {
+    document.body.removeChild(modalContainer);
+  });
 }

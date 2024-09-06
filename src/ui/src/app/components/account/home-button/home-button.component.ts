@@ -5,8 +5,6 @@ import { RouterModule } from '@angular/router';
   selector: 'app-home-button',
   standalone: true,
   imports: [RouterModule],
-  templateUrl: './home-button.component.html'
+  templateUrl: './home-button.component.html',
 })
-export class HomeButtonComponent {
-
-}
+export class HomeButtonComponent {}

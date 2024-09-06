@@ -4,9 +4,9 @@ import { APIResponse } from '../interfaces/api-response.model';
 declare var bootstrap: any;
 
 export default function acServerToast(
-  response: APIResponse<any>, 
-  translate?: TranslateService,  // Optional TranslateService
-  someBoolean: boolean = false   // Optional boolean parameter
+  response: APIResponse<any>,
+  translate?: TranslateService, // Optional TranslateService
+  someBoolean: boolean = false, // Optional boolean parameter
 ) {
   const statusTitles: { [key: number]: string } = {
     200: 'CONTACT.NAME',
@@ -33,7 +33,11 @@ export default function acServerToast(
   }
 }
 
-function showModal(title: string, response: APIResponse<any>, someBoolean: boolean) {
+function showModal(
+  title: string,
+  response: APIResponse<any>,
+  someBoolean: boolean,
+) {
   const modalContainer = document.createElement('div');
   modalContainer.classList.add('modal', 'fade');
   modalContainer.setAttribute('tabindex', '-1');
