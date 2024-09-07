@@ -1,7 +1,7 @@
 <div class="w-100 mt-auto" style="max-width: 526px">
-	<h1>Sign in to Around</h1>
+	<h1>Account Verification</h1>
 	<p class="pb-3 mb-3 mb-lg-4">
-		Don't have an account yet?&nbsp;&nbsp;
+		Dont have an account?&nbsp;&nbsp;
 		<a routerLink="/account/signup">Register here!</a>
 	</p>
 	<form class="needs-validation" (ngSubmit)="onSubmit()" [formGroup]="otpForm">
@@ -17,6 +17,6 @@
 				<input class="form-control form-control-lg ps-5" formControlName="otp" type="text" placeholder="OTP" required />
 			</div>
 		</div>
-		<button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Sign in</button>
+		<button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Verify</button>
 	</form>
 </div>

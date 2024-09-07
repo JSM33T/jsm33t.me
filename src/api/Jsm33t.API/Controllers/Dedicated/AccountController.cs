@@ -17,9 +17,10 @@ namespace Jsm33t.API.Controllers.Dedicated
 {
     [Route("api/account")]
     [ApiController]
-    public class AccountController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IUserRepository userRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
+    public class AccountController(IMailService mailService, IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IUserRepository userRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
     {
         private readonly IUserRepository _userRepo = userRepository;
+        private readonly IMailService _mailService = mailService;
 
         [HttpPost("login")]
         [AllowAnonymous]
@@ -108,8 +109,9 @@ namespace Jsm33t.API.Controllers.Dedicated
                 List<string> hints = [];
                 User_ClaimsResponse userClaims;
                 DbResult result;
+                string otp = string.Empty;
 
-                (result, userClaims) = await _userRepo.UserSignup(request);
+                (result, userClaims,otp) = await _userRepo.UserSignup(request);
 
                 if (result == DbResult.Conflict)
                 {
@@ -127,6 +129,14 @@ namespace Jsm33t.API.Controllers.Dedicated
                 }
                 else
                 {
+                    EmailMessage emailMessage = new()
+                    {
+                        Recipients = [userClaims.Email],
+                        Subject = "otp subject",
+                        Body = otp + " asas"
+                    };
+
+                    await _mailService.SendEmailAsync(emailMessage);
                     message = "Signed up";
                     statCode = StatusCodes.Status200OK;
                     hints.Add("you have signed up .Please verify your email");

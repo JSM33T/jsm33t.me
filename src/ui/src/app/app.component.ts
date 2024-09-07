@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  NavigationEnd,
-  Router,
-  RouterModule,
-  RouterOutlet,
-} from '@angular/router';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 
 import { initBackToTop } from './library/invokers/back-to-top';
 import { SidePanelComponent } from './components/shared/side-panel/side-panel.component';
@@ -18,48 +13,37 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
 import { NgIf } from '@angular/common';
 import { filter } from 'rxjs';
 import { MetaTagManagerService } from './services/metaservice.service';
+import acToaster from './library/modals/toast.modal';
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    NgIf,
-    RouterModule,
-    RouterOutlet,
-    BackToTopComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidePanelComponent,
-    LoadingBarRouterModule,
-    LoadingBarHttpClientModule,
-    LoaderComponent,
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+	selector: 'app-root',
+	standalone: true,
+	imports: [NgIf, RouterModule, RouterOutlet, BackToTopComponent, FooterComponent, NavbarComponent, SidePanelComponent, LoadingBarRouterModule, LoadingBarHttpClientModule, LoaderComponent],
+	templateUrl: './app.component.html',
+	styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private metaTagManagerService: MetaTagManagerService,
-    private router: Router,
-  ) {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-        this.shouldRenderNavbar();
-        this.metaTagManagerService.initializeMetaTags();
-      });
-  }
+	constructor(
+		private metaTagManagerService: MetaTagManagerService,
+		private router: Router,
+	) {
+		this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth',
+			});
+			this.shouldRenderNavbar();
+			this.metaTagManagerService.initializeMetaTags();
+		});
+	}
 
-  ngOnInit(): void {
-    //setTheme();
-    this.metaTagManagerService.initializeMetaTags();
+	ngOnInit(): void {
+		//setTheme();
+		this.metaTagManagerService.initializeMetaTags();
+		//acToaster("Notification", "This is a test message", 300);
 
-    initBackToTop();
-  }
-  shouldRenderNavbar(): boolean {
-    return !this.router.url.includes('account/');
-  }
+		initBackToTop();
+	}
+	shouldRenderNavbar(): boolean {
+		return !this.router.url.includes('account/');
+	}
 }

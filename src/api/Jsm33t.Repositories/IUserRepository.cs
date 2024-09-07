@@ -7,7 +7,7 @@ namespace Jsm33t.Repositories
     {
         public Task<User_ClaimsResponse> UserLogin(User_LoginRequest request);
         public Task<DbResult> UserVerify(User_VerifyRequest request);
-        public Task<(DbResult, User_ClaimsResponse)> UserSignup(User_SignupRequest request);
+        public Task<(DbResult, User_ClaimsResponse,string)> UserSignup(User_SignupRequest request);
         public Task<DbResult> UserAccountRecovery(string username);
     }
 }

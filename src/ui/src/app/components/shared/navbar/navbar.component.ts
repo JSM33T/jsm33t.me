@@ -1,8 +1,4 @@
-import {
-	Component,
-	OnInit,
-	Renderer2
-} from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { initializeThemeSwitcher } from '../../../library/invokers/theme-switcher';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgClass, NgFor, NgIf } from '@angular/common';
@@ -23,7 +19,10 @@ interface UserClaims {
 	styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-	constructor(private renderer: Renderer2,private router: Router) { }
+	constructor(
+		private renderer: Renderer2,
+		private router: Router,
+	) {}
 
 	user: UserClaims = {
 		username: '',
@@ -32,8 +31,8 @@ export class NavbarComponent implements OnInit {
 	};
 
 	logout() {
-		localStorage.removeItem("token");
-		this.reloadComponent(true,"/");
+		localStorage.removeItem('token');
+		this.reloadComponent(true, '/');
 	}
 
 	isLoggedIn: boolean = false;
@@ -54,23 +53,21 @@ export class NavbarComponent implements OnInit {
 	}
 
 	navToggler() {
-		const button = document.querySelector(
-			'button.navbar-toggler'
-		) as HTMLButtonElement;
+		const button = document.querySelector('button.navbar-toggler') as HTMLButtonElement;
 		if (button.getAttribute('aria-expanded') === 'true') {
 			const bb = document.querySelector('.navbar-toggler') as HTMLButtonElement;
 			bb.click();
 		}
 	}
 
-	reloadComponent(self:boolean,urlToNavigateTo ?:string){
+	reloadComponent(self: boolean, urlToNavigateTo?: string) {
 		//skipLocationChange:true means dont update the url to / when navigating
-	   console.log("Current route I am on:",this.router.url);
-	   const url=self ? this.router.url :urlToNavigateTo;
-	   this.router.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-		 this.router.navigate([`/${url}`]).then(()=>{
-		   console.log(`After navigation I am on:${this.router.url}`)
-		 })
-	   })
-	 }
+		console.log('Current route I am on:', this.router.url);
+		const url = self ? this.router.url : urlToNavigateTo;
+		this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+			this.router.navigate([`/${url}`]).then(() => {
+				console.log(`After navigation I am on:${this.router.url}`);
+			});
+		});
+	}
 }

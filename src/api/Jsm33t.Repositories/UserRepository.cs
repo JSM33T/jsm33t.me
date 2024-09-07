@@ -38,21 +38,22 @@ namespace Jsm33t.Repositories
             return user;
         }
 
-        public async Task<(DbResult, User_ClaimsResponse)> UserSignup(User_SignupRequest request)
+        public async Task<(DbResult, User_ClaimsResponse,string)> UserSignup(User_SignupRequest request)
         {
+            string otp = await Crypto.GenerateOTP();
             var parameters = new DynamicParameters();
             parameters.Add("@Firstname", request.Firstname, DbType.String, ParameterDirection.Input);
             parameters.Add("@Lastname", request.Lastname, DbType.String, ParameterDirection.Input);
             parameters.Add("@Username", request.Username, DbType.String, ParameterDirection.Input);
             parameters.Add("@Email", request.Email, DbType.String, ParameterDirection.Input);
             parameters.Add("@Password", request.Password, DbType.String, ParameterDirection.Input);
-            parameters.Add("@otp",await Crypto.GenerateOTP(), DbType.String, ParameterDirection.Input);
+            parameters.Add("@otp", otp, DbType.String, ParameterDirection.Input);
             parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             using var results = await _dbConnection.QueryMultipleAsync("sproc_UserSignup", parameters, commandType: CommandType.StoredProcedure);
             var user = results.ReadSingleOrDefault<User_ClaimsResponse>() ?? null;
             var result = (DbResult)parameters.Get<int>("@Result");
-            return (result, user);
+            return (result, user,otp);
         }
 
         public async Task<DbResult> UserVerify(User_VerifyRequest request)

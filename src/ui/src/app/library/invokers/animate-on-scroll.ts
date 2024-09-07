@@ -1,30 +1,29 @@
 import Aos from 'aos';
 
 export default function initAOS() {
-  const animationToggle = document.querySelector('[data-aos]');
+	const animationToggle = document.querySelector('[data-aos]');
 
-  if (animationToggle === null) return;
+	if (animationToggle === null) return;
 
-  Aos.refresh();
-  Aos.init();
+	Aos.refresh();
+	Aos.init();
 }
 
 export function refreshAOS() {
-    Aos.refresh();
-  }
-
+	Aos.refresh();
+}
 
 export function enableAOS() {
-  Aos.init({
-    disable: false,
-  });
+	Aos.init({
+		disable: false,
+	});
 }
 export function disableAOS() {
-  Aos.init({
-    disable: true,
-  });
+	Aos.init({
+		disable: true,
+	});
 }
 
 export function cleanAOS() {
-  Aos.refreshHard();
+	Aos.refreshHard();
 }

@@ -4,38 +4,38 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import initAOS, { cleanAOS } from '../../library/invokers/animate-on-scroll';
 
 @Component({
-  selector: 'app-artifacts',
-  standalone: true,
-  imports: [RouterModule, NgFor, RouterOutlet],
-  templateUrl: './artifacts.component.html',
-  styleUrl: './artifacts.component.css',
+	selector: 'app-artifacts',
+	standalone: true,
+	imports: [RouterModule, NgFor, RouterOutlet],
+	templateUrl: './artifacts.component.html',
+	styleUrl: './artifacts.component.css',
 })
 export class ArtifactsComponent implements OnInit, OnDestroy, AfterViewInit {
-  ngAfterViewInit(): void {
-    initAOS();
-  }
-  ngOnDestroy(): void {
-    cleanAOS();
-  }
-  ngOnInit(): void {}
+	ngAfterViewInit(): void {
+		initAOS();
+	}
+	ngOnDestroy(): void {
+		cleanAOS();
+	}
+	ngOnInit(): void {}
 
-  cardData = [
-    {
-      Title: 'Lightroom Presets',
-      Description: 'Lightroom presets crafted for yall',
-      Logo: './assets/images/artifacts/photography.svg',
-      Aos: 'flip-up',
-      Duration: '300',
-    },
-  ];
+	cardData = [
+		{
+			Title: 'Lightroom Presets',
+			Description: 'Lightroom presets crafted for yall',
+			Logo: './assets/images/artifacts/photography.svg',
+			Aos: 'flip-up',
+			Duration: '300',
+		},
+	];
 
-  cardData2 = [
-    {
-      Title: 'Sample packs',
-      Description: 'Music production sample packs',
-      Logo: './assets/images/artifacts/music.svg',
-      Aos: 'flip-down',
-      Duration: '600',
-    },
-  ];
+	cardData2 = [
+		{
+			Title: 'Sample packs',
+			Description: 'Music production sample packs',
+			Logo: './assets/images/artifacts/music.svg',
+			Aos: 'flip-down',
+			Duration: '600',
+		},
+	];
 }
