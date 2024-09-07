@@ -13,6 +13,7 @@ namespace Jsm33t.Entities.Enums
         Conflict = 2,
         Conflict_B = 22,
         NotFound = 3,
+        NotFound_B = 33,
         Expired = 4
     }
 }

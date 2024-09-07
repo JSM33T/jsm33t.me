@@ -9,6 +9,11 @@ export default function initAOS() {
   Aos.init();
 }
 
+export function refreshAOS() {
+    Aos.refresh();
+  }
+
+
 export function enableAOS() {
   Aos.init({
     disable: false,

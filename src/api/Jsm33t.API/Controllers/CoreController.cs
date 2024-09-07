@@ -59,7 +59,6 @@ namespace Jsm33t.API.Controllers
         }
 
         [HttpPost("sendEmail")]
-        [Authorize(Roles ="admin")]
         public async Task<IActionResult> SendEmail([FromBody] EmailMessage emailMessage)
         {
             await _mailService.SendEmailAsync(emailMessage);

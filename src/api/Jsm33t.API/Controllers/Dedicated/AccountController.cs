@@ -30,7 +30,7 @@ namespace Jsm33t.API.Controllers.Dedicated
             {
                 int statCode = default;
                 string message = string.Empty;
-                List<string> errors = [];
+                List<string> hints = [];
                 User_ClaimsResponse userClaims;
 
                 userClaims = await _userRepo.UserLogin(request);
@@ -41,8 +41,9 @@ namespace Jsm33t.API.Controllers.Dedicated
                     var claims = new[]
                        {
                             new Claim(ClaimTypes.Email, userClaims.Email),
+                            new Claim(ClaimTypes.NameIdentifier,userClaims.Id),
                             new Claim(ClaimTypes.Role, userClaims.Role),
-                            new Claim("Id", userClaims.UserId.ToString()),
+                            new Claim("id", userClaims.Id.ToString()),
                             new Claim("username", userClaims.FirstName),
                             new Claim("role", userClaims.Role),
                             new Claim("firstname", userClaims.FirstName),
@@ -62,16 +63,20 @@ namespace Jsm33t.API.Controllers.Dedicated
                         signingCredentials: creds);
 
                     userClaims.Token = new JwtSecurityTokenHandler().WriteToken(token);
+
+                    statCode = StatusCodes.Status200OK;
+                    message = "Logged In..";
+
                 }
                 else
                 {
                     statCode = StatusCodes.Status400BadRequest;
                     message = "Invalid credentials";
-                    errors.Add("Please check your creds");
+                    hints.Add("Please check your creds");
                 }
 
 
-                return (statCode, userClaims, message, errors);
+                return (statCode, userClaims, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
         #endregion
@@ -167,7 +172,7 @@ namespace Jsm33t.API.Controllers.Dedicated
 
         [HttpPost("recover")]
         [AllowAnonymous]
-        #region User signup
+        #region User recovery
         public async Task<IActionResult> RecoveryRequest(string username)
         {
             return await ExecuteActionAsync(async () =>

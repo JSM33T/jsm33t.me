@@ -5,8 +5,8 @@
 			<li class="breadcrumb-item"><a routerLink="/">Home</a></li>
 			<li class="breadcrumb-item"><a routerLink="/blogs">Blog</a></li>
 			<li class="breadcrumb-item active" aria-current="page">
-				<span *ngIf="!isLoading; else placeholder">{{ title }}</span>
-				<ng-template #placeholder>
+				<span *ngIf="!isLoading; else titlePlaceholder">{{ title }}</span>
+				<ng-template #titlePlaceholder>
 					<span class="placeholder glow col-sm-12 bg-primary w-200" data-aos="fade-in" data-aos-duration="500"></span>
 				</ng-template>
 			</li>
@@ -28,22 +28,20 @@
 					</ng-container>
 				</div>
 				<div class="d-flex align-items-center mb-4">
-					<span class="fs-sm me-2">Share post:</span>
-					<div class="d-flex">
-						<a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram" aria-label="Instagram">
-							<i class="ai-instagram"></i>
-						</a>
-						<a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
-							<i class="ai-facebook"></i>
-						</a>
-						<a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
-							<i class="ai-telegram fs-sm"></i>
-						</a>
-						<a class="nav-link p-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="X" aria-label="X">
-							<i class="ai-x"></i>
-						</a>
+					<div class="d-flex" *ngIf="!isLoading; else likePlaceholder">
+						<!-- <button type="button" class="btn btn-outline-danger rounded-pill py-2 mx-2" (click)="togglelike()"> -->
+
+						<button [ngClass]="isLiked ? 'btn-outline-danger btn rounded-pill py-2 mx-2' : 'btn-outline-primary btn rounded-pill py-2 mx-2'" (click)="togglelike()">
+							<i [class]="{ 'ai-heart-filled': isLiked, 'ai-heart': !isLiked }"></i>
+							<span class="px-1">n</span>
+						</button>
+						<button type="button" class="btn btn-outline-primary rounded-pill py-2">
+							<span class="dan"><i class="ai-share"></i></span>
+						</button>
 					</div>
-					<button class="btn-primary" (click)="likeBlog()">Like</button>
+					<ng-template #likePlaceholder>
+						<span class="placeholder glow col-sm-12 bg-primary w-200" data-aos="fade-in" data-aos-duration="500"></span>
+					</ng-template>
 				</div>
 			</div>
 

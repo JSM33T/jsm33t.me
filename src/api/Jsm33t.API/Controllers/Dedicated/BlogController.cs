@@ -10,6 +10,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Security.Claims;
+using Telegram.Bot.Types;
 
 namespace Jsm33t.API.Controllers.Dedicated
 {
@@ -57,7 +58,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                 Blog_GetDetails BlogDetails = new();
                 Blog Blog = new();
 
-                var filePath = Path.Combine("wwwroot", "content","blogs", year, slug, $"content.md");
+                var filePath = Path.Combine("wwwroot", "content", "blogs", year, slug, $"content.md");
                 Blog = await _BlogRepo.GetBlogDetailsBySlug(slug);
                 if (Blog != null)
                 {
@@ -80,10 +81,8 @@ namespace Jsm33t.API.Controllers.Dedicated
                     statusCode = StatusCodes.Status404NotFound;
                     hints.Add("NO blog found with this criteria");
                     BlogDetails = null;
-                    
-                }
-               
 
+                }
                 return (statusCode, BlogDetails, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
@@ -102,7 +101,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                 Blog blog;
 
                 blog = await _BlogRepo.GetBlogDetailsBySlug(slug);
-                if (blog  != null)
+                if (blog != null)
                 {
                     message = "retrieved";
                     statusCode = StatusCodes.Status200OK;
@@ -111,7 +110,6 @@ namespace Jsm33t.API.Controllers.Dedicated
                 {
                     hints.Add("No blog found with this criteria");
                 }
-
                 return (statusCode, blog, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
@@ -130,7 +128,6 @@ namespace Jsm33t.API.Controllers.Dedicated
 
                 if (!memoryCache.TryGetValue("Categories", out List<BlogCategory> categories))
                 {
-                    await Task.Delay(2000);
                     categories = await _BlogRepo.GetCategories();
 
                     if (categories.Count > 0)
@@ -159,23 +156,52 @@ namespace Jsm33t.API.Controllers.Dedicated
         {
             return await ExecuteActionAsync(async () =>
             {
-                int statusCode = default;
-                string message = string.Empty;
+                int statusCode = StatusCodes.Status400BadRequest;
+                string message = "Bad request";
                 List<string> hints = [];
                 DbResult result = default;
 
-                Claim userIdClaim = _httpContextAccessor.HttpContext.User.FindFirst("Id");
-                int UserId = userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
 
+                var userClaims = User.Claims;
 
-                result = await _BlogRepo.AddBlogLike(likeRequest.Slug,UserId);
+                var userId = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value
+                             ?? userClaims.FirstOrDefault(c => c.Type == "id")?.Value;
+
+                result = await _BlogRepo.AddBlogLike(likeRequest.Slug, int.Parse(userId));
+
+                if (result == DbResult.Success)
+                {
+                    message = "Success";
+                    statusCode = StatusCodes.Status200OK;
+                }
 
                 return (statusCode, 0, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
 
         #endregion
-   
-   
+
+        [HttpGet("getlikestatus/{slug}")]
+        #region Get like status
+        public async Task<IActionResult> GetLikeStatus(string slug)
+        {
+            return await ExecuteActionAsync(async () =>
+            {
+                int statusCode = StatusCodes.Status200OK;
+                string message = string.Empty;
+                List<string> hints = [];
+                bool isLiked = false;
+
+                Claim userIdClaim = _httpContextAccessor.HttpContext.User.FindFirst("Id");
+
+                if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int UserId))
+                {
+                    isLiked = await _BlogRepo.GetBlogLikeStatus(slug, UserId);
+                }
+
+                return (statusCode, isLiked, message, hints);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
+        #endregion
     }
 }

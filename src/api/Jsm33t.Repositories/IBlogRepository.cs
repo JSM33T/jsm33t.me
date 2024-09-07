@@ -12,5 +12,6 @@ namespace Jsm33t.Repositories
         public Task<Blog> GetBlogDetailsBySlug(string Slug);
         public Task<IEnumerable<BlogAuthor>> GetBlogAuthorsByBlogId(int BlogId);
         public Task<DbResult> AddBlogLike(string Slug, int UserId);
+        public Task<bool> GetBlogLikeStatus(string Slug, int UserId);
     }
 }

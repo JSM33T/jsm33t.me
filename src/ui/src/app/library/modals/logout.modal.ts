@@ -1,6 +1,6 @@
 declare var bootstrap: any;
 
-export default function acToast(title: string, message: string) {
+export default function acLogout() {
     // Create the modal container
     const modalContainer = document.createElement('div');
     modalContainer.classList.add('modal', 'fade');
@@ -14,16 +14,17 @@ export default function acToast(title: string, message: string) {
       <div class="modal-dialog" role="document" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">${title}</h5>
+            <h5 class="modal-title">Logout</h5>
             <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body text-primary">
-            ${message}
+            Wanna logout?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+            <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="logoutButton">Logout?</button>
           </div>
         </div>
       </div>

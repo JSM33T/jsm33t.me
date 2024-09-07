@@ -120,6 +120,21 @@ namespace Jsm33t.Repositories
             return result;
         }
 
+        public async Task<bool> GetBlogLikeStatus(string Slug, int UserId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@Slug", Slug, DbType.String, ParameterDirection.Input);
+            parameters.Add("@UserId", UserId, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            await _dbConnection.ExecuteAsync("sproc_GetBlogLikeStatus", parameters, commandType: CommandType.StoredProcedure);
+
+            var result = parameters.Get<DbResult>("@Result");
+
+            return result == DbResult.Success;
+            
+        }
+
 
     }
 }
