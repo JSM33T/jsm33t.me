@@ -1,3 +1,4 @@
 scripts/__pycache__/
 scripts/logs/
 src/api/.vs/
+ftp_config.yml
