@@ -17,7 +17,7 @@ import acToaster from './library/modals/toast.modal';
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [NgIf, RouterModule, RouterOutlet, BackToTopComponent, FooterComponent, NavbarComponent, SidePanelComponent, LoadingBarRouterModule, LoadingBarHttpClientModule, LoaderComponent],
+    imports: [NgIf, RouterModule, RouterOutlet, BackToTopComponent, FooterComponent, NavbarComponent, SidePanelComponent, LoadingBarRouterModule,LoadingBarHttpClientModule, LoaderComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
 })

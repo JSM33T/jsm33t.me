@@ -1,0 +1,27 @@
+<div *ngIf="currentAudio" class="card text-center card border-0 bg-secondary">
+    <div class="card-header">current track: {{ currentAudio }}</div>
+    <div class="card-body">
+        <div class="seek-panel">
+          <input 
+            type="range" 
+            [min]="0" 
+            [max]="duration" 
+            [value]="currentTime" 
+            (input)="onSeek($event)"
+            class="seek-bar"
+          >
+          <div class="time-display">
+            {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
+          </div>
+        </div>
+        <div class="controls">
+          <button (click)="togglePlay()" class="btn btn-outline-primary">
+            <i [class]="isPlaying ? 'ai-pause' : 'ai-play'"></i>
+          </button>
+          <button (click)="stop()" class="btn btn-outline-primary">
+            <i class="ai-octagon"></i>
+          </button>
+        </div>
+    </div>
+    <div class="card-footer fs-sm text-body-secondary">3 days ago</div>
+  </div>
