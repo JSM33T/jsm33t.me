@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { HomeButtonComponent } from '../home-button/home-button.component';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
 import { ResponseHandlerService } from '../../../library/helpers/response-handler';
@@ -10,7 +9,7 @@ import { Observable } from 'rxjs';
 @Component({
 	selector: 'app-signup',
 	standalone: true,
-	imports: [ReactiveFormsModule, HomeButtonComponent, RouterModule],
+	imports: [ReactiveFormsModule, RouterModule],
 	templateUrl: './signup.component.html',
 	styleUrl: './signup.component.css',
 })

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { HomeButtonComponent } from '../home-button/home-button.component';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ResponseHandlerService } from '../../../library/helpers/response-handler';
 import { APIResponse } from '../../../library/interfaces/api-response.model';
@@ -10,7 +9,7 @@ import { HttpService } from '../../../services/http.service';
 @Component({
 	selector: 'app-otp',
 	standalone: true,
-	imports: [ReactiveFormsModule, HomeButtonComponent, RouterModule],
+	imports: [ReactiveFormsModule, RouterModule],
 	templateUrl: './otp.component.html',
 	styleUrl: './otp.component.css',
 })

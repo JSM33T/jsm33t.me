@@ -4,14 +4,13 @@ import { ResponseHandlerService } from '../../../library/helpers/response-handle
 import { HttpService } from '../../../services/http.service';
 import { APIResponse } from '../../../library/interfaces/api-response.model';
 import { Observable } from 'rxjs';
-import { HomeButtonComponent } from '../home-button/home-button.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import acToaster from '../../../library/modals/toast.modal';
 
 @Component({
 	selector: 'app-login',
 	standalone: true,
-	imports: [ReactiveFormsModule, HomeButtonComponent, RouterModule],
+	imports: [ReactiveFormsModule, RouterModule],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css',
 })

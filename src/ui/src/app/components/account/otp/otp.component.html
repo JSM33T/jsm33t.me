@@ -5,16 +5,18 @@
 		<a routerLink="/account/signup">Register here!</a>
 	</p>
 	<form class="needs-validation" (ngSubmit)="onSubmit()" [formGroup]="otpForm">
-		<div class="pb-3 mb-3">
-			<div class="position-relative">
-				<i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-				<input class="form-control form-control-lg ps-5" formControlName="username" type="text" placeholder="username / email" required />
+		<div class="row row-cols-1 row-cols-sm-1 disabled">
+			<div class="col mb-6 pb-4">
+				<div class="position-relative">
+					<i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+					<input class="form-control form-control-lg ps-5" formControlName="username" type="text" placeholder="username / email" required />
+				</div>
 			</div>
-		</div>
-		<div class="pb-3 mb-3">
-			<div class="position-relative">
-				<i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-				<input class="form-control form-control-lg ps-5" formControlName="otp" type="text" placeholder="OTP" required />
+			<div class="col mb-6 pb-4">
+				<div class="position-relative">
+					<i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+					<input class="form-control form-control-lg ps-5" formControlName="otp" type="text" placeholder="OTP" required />
+				</div>
 			</div>
 		</div>
 		<button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Verify</button>

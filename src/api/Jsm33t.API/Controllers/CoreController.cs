@@ -31,7 +31,7 @@ namespace Jsm33t.API.Controllers
             return await ExecuteActionAsync(async () =>
             {
                 int statCode = StatusCodes.Status200OK;
-                string message = string.Empty;
+                string message = "API server is up and healthy";
                 List<string> errors = [];
                 User_ClaimsResponse userClaims = null;
 
