@@ -29,11 +29,9 @@ export const routes: Route[] = [
 	{
 		path: 'studio',
 		loadComponent: () => import('./components/studio/studio.component').then((m) => m.StudioComponent),
+		loadChildren: () => import('./components/studio/studio.routes').then((m) => m.STUDIO_ROUTES),
 	},
-	{
-		path: 'studio/:slug',
-		loadComponent: () => import('./components/studio/view/view.component').then((m) => m.ViewComponent),
-	},
+
 	{
 		path: 'account',
 		loadComponent: () => import('./components/account/account.component').then((m) => m.AccountComponent),

@@ -63,8 +63,12 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   }
 
   playAudio(audioFile: string) {
+    const filename = audioFile.split('/').pop()?.toString().slice(0, -4)
     this.audio.src = audioFile;
-    this.currentAudio = audioFile;
+    if(filename)
+    {
+        this.currentAudio =decodeURIComponent(filename) ;
+    }
     this.audio.load(); // Ensure the audio is loaded before playing
     this.audio.play().then(() => {
       this.ngZone.run(() => {

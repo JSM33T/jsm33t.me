@@ -1,0 +1,28 @@
+{
+  "audioFiles": [
+    {
+      "name": "Melancholy",
+      "mp3Link": "https://example.com/song1.mp3",
+      "artist": {
+        "name": "Artist Name 1",
+        "link": "https://example.com/artist1"
+      },
+      "streamLinks": [
+        "https://example.com/stream1",
+        "https://example.com/stream2"
+      ]
+    },
+    {
+      "name": "Titli",
+      "mp3Link": "https://example.com/song2.mp3",
+      "artist": {
+        "name": "Artist Name 2",
+        "link": "https://example.com/artist2"
+      },
+      "streamLinks": [
+        "https://example.com/stream3",
+        "https://example.com/stream4"
+      ]
+    }
+  ]
+}
