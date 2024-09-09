@@ -9,6 +9,13 @@
 	</div>
 	<div class="offcanvas-body">
         <app-audio-player></app-audio-player>
+
+        <button (click)="disableAnimations()" class="btn btn-outline-primary">
+            <i class="ai-play"></i>
+          </button>
+          <button (click)="enableAnimations()" class="btn btn-outline-primary">
+            <i class="ai-play"></i>
+          </button>
 		<div class="d-flex align-items-center pt-4 mt-n2 mb-3">
 			<i class="ai-maximize text-body-secondary fs-5 me-2"></i>
 			<h5 class="mb-0">Updates</h5>
