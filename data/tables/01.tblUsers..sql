@@ -25,6 +25,8 @@ CREATE TABLE [dbo].[tblUsers]
 	[Key]			UNIQUEIDENTIFIER	NOT NULL  DEFAULT NEWID(),
 
     OTP             NVARCHAR(6)         NOT NULL,
+	
+	OTPDate			DATETIME			NOT NULL DEFAULT GETDATE(),
 
 	IsActive		BIT					NOT NULL DEFAULT 1,
 
@@ -45,5 +47,6 @@ CREATE TABLE [dbo].[tblUsers]
     CONSTRAINT      PK_UserTable PRIMARY KEY (Id),
 
     CONSTRAINT      UQ_User_Username UNIQUE (Username),
+	
 	CONSTRAINT      UQ_User_Email UNIQUE (Email)
 );

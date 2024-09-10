@@ -48,6 +48,6 @@ def combine_sql_scripts_sequentially(input_directory, output_file):
         master_file.write("\n\n".join(combined_sql))
 
 # Example usage: combine SQL scripts from 'table' directory into master file in the main directory
-combine_sql_scripts_sequentially('tables', 'master_table.sql')
-combine_sql_scripts_sequentially('sprocs', 'master_sproc.sql')
-combine_sql_scripts_sequentially('seed', 'master_seed.sql')
+combine_sql_scripts_sequentially('tables', 'master/master_table.sql')
+combine_sql_scripts_sequentially('sprocs', 'master/master_sproc.sql')
+combine_sql_scripts_sequentially('seed', 'master/master_seed.sql')

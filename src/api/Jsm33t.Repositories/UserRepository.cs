@@ -5,7 +5,6 @@ using Dapper;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Data;
-using System.Data.Common;
 using Jsm33t.Library;
 
 namespace Jsm33t.Repositories
@@ -69,7 +68,6 @@ namespace Jsm33t.Repositories
             return (DbResult)result;
         }
 
-
         public async Task<DbResult> UserAccountRecovery(string username)
         {
             var otp = await Crypto.GenerateOTP();
@@ -83,8 +81,5 @@ namespace Jsm33t.Repositories
             var result = parameters.Get<int>("@Result");
             return (DbResult)result;
         }
-
-
-
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Security.Claims;
-using Telegram.Bot.Types;
+
 
 namespace Jsm33t.API.Controllers.Dedicated
 {

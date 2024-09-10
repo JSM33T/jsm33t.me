@@ -41,7 +41,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                     var claims = new[]
                        {
                             new Claim(ClaimTypes.Email, userClaims.Email),
-                            new Claim(ClaimTypes.NameIdentifier,userClaims.Id),
+                            new Claim(ClaimTypes.NameIdentifier,userClaims.Username),
                             new Claim(ClaimTypes.Role, userClaims.Role),
                             new Claim("id", userClaims.Id.ToString()),
                             new Claim("username", userClaims.FirstName),
@@ -81,20 +81,20 @@ namespace Jsm33t.API.Controllers.Dedicated
         }
         #endregion
 
-        [HttpGet("logout")]
-        [Authorize("member")]
-        public async Task<IActionResult> Logout()
-        {
-            return await ExecuteActionAsync(async () =>
-            {
-                int statCode = default;
-                string message = string.Empty;
-                List<string> errors = [];
-                User_ClaimsResponse userClaims = null;
+        // [HttpGet("logout")]
+        // [Authorize("member")]
+        // public async Task<IActionResult> Logout()
+        // {
+        //     return await ExecuteActionAsync(async () =>
+        //     {
+        //         int statCode = default;
+        //         string message = string.Empty;
+        //         List<string> errors = [];
+        //         User_ClaimsResponse userClaims = null;
 
-                return (statCode, userClaims, message, errors);
-            }, MethodBase.GetCurrentMethod().Name);
-        }
+        //         return (statCode, userClaims, message, errors);
+        //     }, MethodBase.GetCurrentMethod().Name);
+        // }
 
         [HttpPost("signup")]
         [AllowAnonymous]
@@ -103,8 +103,8 @@ namespace Jsm33t.API.Controllers.Dedicated
         {
             return await ExecuteActionAsync(async () =>
             {
-                int statCode = default;
-                string message = string.Empty;
+                int statCode = default; 
+                string message = string.Empty;  
                 List<string> hints = [];
                 User_ClaimsResponse userClaims;
                 DbResult result;
@@ -166,12 +166,13 @@ namespace Jsm33t.API.Controllers.Dedicated
                     message = "Account verified";
                     statCode = StatusCodes.Status200OK;
                     hints.Add("Account has been registered");
+                    hints.Add("Now you can proceed to login");
                 }
                 else
                 {
                     message = "Invalid OTP";
                     statCode = StatusCodes.Status400BadRequest;
-                    hints.Add("");
+                    hints.Add("Check if OTP and username are valid");
                 }
 
                 return (statCode, result, message, hints);
@@ -196,15 +197,15 @@ namespace Jsm33t.API.Controllers.Dedicated
 
                 if (result == DbResult.Success)
                 {
-                    message = "Account verified";
+                    message = "Recovery request accepted";
                     statCode = StatusCodes.Status200OK;
-                    hints.Add("Account has been registered");
+                    hints.Add("Please check your email for the OTP");
                 }
                 else
                 {
-                    message = "Invalid OTP";
+                    message = "Error occured while adding request";
                     statCode = StatusCodes.Status400BadRequest;
-                    hints.Add("");
+                    hints.Add("Please check your username");
                 }
 
                 return (statCode, result, message, hints);
