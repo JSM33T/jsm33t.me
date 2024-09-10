@@ -1,6 +1,3 @@
-USE [almondcove_db]
-GO
-
 CREATE OR ALTER PROCEDURE [dbo].[sproc_GetPaginatedBlogs]
     @PageNumber INT,
     @PageSize INT,

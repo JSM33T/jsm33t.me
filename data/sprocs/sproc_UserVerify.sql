@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE dbo.sproc_UserVerifyAndUpdate
+CREATE OR ALTER PROCEDURE [dbo].[sproc_UserVerifyAndUpdate]
     @Username NVARCHAR(255),
     @OTP NVARCHAR(255),
     @Result INT OUTPUT

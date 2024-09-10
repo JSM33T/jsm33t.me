@@ -1,0 +1,34 @@
+import os
+
+def combine_sql_scripts_sequentially(input_directory, output_file):
+    # List to store filenames with .sql extension
+    sql_files = [f for f in os.listdir(input_directory) if f.endswith(".sql")]
+
+    # Sort files based on the numeric prefix (e.g., 01, 02, 03)
+    sql_files.sort(key=lambda f: int(f.split('.')[0]))  # Extract numeric part before the first dot
+    
+    # List to store combined SQL content
+    combined_sql = []
+    
+    # Iterate over the sorted filenames
+    for filename in sql_files:
+        filepath = os.path.join(input_directory, filename)
+        
+        with open(filepath, 'r') as file:
+            sql_content = file.read().strip()
+            
+            # Check if the last statement ends with 'GO' or 'go'
+            if not sql_content.lower().endswith("go"):
+                sql_content += "\nGO"
+            
+            # Append the script with GO if not present
+            combined_sql.append(sql_content)
+    
+    # Write the combined SQL to a file in the main directory
+    with open(output_file, 'w') as master_file:
+        master_file.write("\n\n".join(combined_sql))
+
+# Example usage: combine SQL scripts from 'table' directory into master file in the main directory
+combine_sql_scripts_sequentially('tables', 'master_table.sql')
+combine_sql_scripts_sequentially('sprocs', 'master_sproc.sql')
+combine_sql_scripts_sequentially('seed', 'master_seed.sql')

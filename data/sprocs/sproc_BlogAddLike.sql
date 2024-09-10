@@ -28,7 +28,7 @@ BEGIN
             DELETE FROM tblBlogLikes
             WHERE Id = @LikeId;
 
-            SET @Result = 2; -- Like removed
+            SET @Result = 0; -- Like removed
         END
         ELSE
         BEGIN

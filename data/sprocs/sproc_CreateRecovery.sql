@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[sproc_CreateRecovery]
+CREATE OR ALTER PROCEDURE [dbo].[sproc_CreateRecovery]
     @UserId NVARCHAR(50),
     @OTP NVARCHAR(10),
     @Result INT OUTPUT

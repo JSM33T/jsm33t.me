@@ -1,4 +1,4 @@
-CREATE OR ALTER   PROCEDURE [dbo].[sproc_GetBlogAuthorsByBlogId]
+CREATE OR ALTER PROCEDURE [dbo].[sproc_GetBlogAuthorsByBlogId]
     @BlogId INT
 AS
 BEGIN
