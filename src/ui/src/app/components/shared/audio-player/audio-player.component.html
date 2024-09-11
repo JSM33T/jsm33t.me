@@ -15,13 +15,26 @@
           </div>
         </div>
         <div class="controls">
-          <button (click)="togglePlay()" class="btn btn-outline-primary">
+
+
+            <div class="btn-group w-100" role="group" aria-label="Outline button group">
+				<button type="button" (click)="togglePlay()" class="btn btn-sm btn-outline-primary"> <i [class]="isPlaying ? 'ai-pause' : 'ai-play'"></i></button>
+				<button type="button" (click)="stop()" class="btn btn-sm btn-outline-primary"><i class="ai-octagon"></i></button>
+			</div>
+
+          <!-- <button (click)="togglePlay()" class="btn btn-outline-primary">
             <i [class]="isPlaying ? 'ai-pause' : 'ai-play'"></i>
           </button>
           <button (click)="stop()" class="btn btn-outline-primary">
             <i class="ai-octagon"></i>
-          </button>
+          </button> -->
         </div>
     </div>
     <div class="card-footer fs-sm text-body-secondary">3 days ago</div>
+  </div>
+
+  <div *ngIf="!currentAudio">
+    <div class="card text-center card border-0 bg-secondary mb-2 wip">
+        <div class="card-body py-3">Player inactive</div>
+    </div>
   </div>

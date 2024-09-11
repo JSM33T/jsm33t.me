@@ -35,7 +35,7 @@ export class HomeComponent {
 	}
 
 	ngOnInit(): void {
-		initParallax();
+		//initParallax();
 		initAOS();
 	}
 }
