@@ -6,12 +6,12 @@ CREATE TABLE [dbo].[tblBlogLikes]
 
 	UserId			INT	            NOT NULL,
 
-    Priority        INT             DEFAULT(1)
+    Priority        INT             DEFAULT(1),
 
     DateAdded		DATETIME		NOT NULL	DEFAULT GETDATE(),
 
 
-    CONSTRAINT PK_tblBlogLikes PRIMARY KEY (Id)
+    CONSTRAINT PK_tblBlogLikes PRIMARY KEY (Id),
 
     CONSTRAINT FK_BlogLikes_BlogId FOREIGN KEY (BlogId) REFERENCES tblBlogs(Id),
 

@@ -4,13 +4,9 @@ CREATE TABLE [dbo].[tblBlogCategories]
 
     CategoryName	NVARCHAR(128)	NOT NULL,
 
-	Slug			NVARCHAR(128) NOT NULL,
+	Slug			NVARCHAR(128)   NOT NULL,
 
-	Priority		INT, 
-	NOT NULL,
-					DEFAULT(10)
+	Priority		INT             NOT NULL    DEFAULT(10),
 
-    DateAdded		DATETIME 
-					NOT NULL 
-					DEFAULT GETDATE(),
+    DateAdded		DATETIME        NOT NULL    DEFAULT GETDATE(),
 );

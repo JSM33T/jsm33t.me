@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[tblBlogCommentReplies]
     DateEdited		DATETIME		NOT NULL	DEFAULT GETDATE(),
 
 
-    CONSTRAINT PK_tblBlogCommentReplies PRIMARY KEY (Id)
+    CONSTRAINT PK_tblBlogCommentReplies PRIMARY KEY (Id),
 
     CONSTRAINT FK_tblBlogCommentReplies_CommentId FOREIGN KEY (CommentId) REFERENCES tblBlogComments(Id),
 
