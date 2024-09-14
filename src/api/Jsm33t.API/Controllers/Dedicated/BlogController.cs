@@ -164,8 +164,7 @@ namespace Jsm33t.API.Controllers.Dedicated
 
                 var userClaims = User.Claims;
 
-                var userId = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value
-                             ?? userClaims.FirstOrDefault(c => c.Type == "id")?.Value;
+                var userId =  userClaims.FirstOrDefault(c => c.Type == "id")?.Value;
 
                 result = await _BlogRepo.AddBlogLike(likeRequest.Slug, int.Parse(userId));
 
