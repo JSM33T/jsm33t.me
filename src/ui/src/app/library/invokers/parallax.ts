@@ -17,7 +17,7 @@ export function initParallax() {
 
 let ff = localStorage.getItem("animations");
 
-if(ff == "true")
+if(ff == "true" || ff == null)
 {
     const element = document.querySelector('.parallax') as HTMLElement;
     if (element) {
