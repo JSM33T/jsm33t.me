@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import initAOS from '../../../../library/invokers/animate-on-scroll';
-import { initParallax } from '../../../../library/invokers/parallax';
 import { audioRequestService } from '../../../shared/audio-player/audio-player.component';
 import { NgFor } from '@angular/common';
 import { environment } from '../../../../../environment/environment';
+import { ParallaxService } from '../../../../services/parallax.service';
 
 @Component({
     selector: 'app-coffeeroomalbum',
@@ -13,9 +13,12 @@ import { environment } from '../../../../../environment/environment';
     styleUrl: './coffeeroomalbum.component.css'
 })
 export class CoffeeroomalbumComponent implements OnInit {
+
+constructor(private parallaxService : ParallaxService){}
+
     ngOnInit(): void {
         initAOS();
-        initParallax();
+        this.parallaxService.initParallax("coverparallax");
     }
     baseadd: string = environment.cdnUrl + '';
 
@@ -35,5 +38,10 @@ export class CoffeeroomalbumComponent implements OnInit {
     }
     playE() {
         audioRequestService.requestAudioPlay(environment.cdnUrl + "/music/the-coffeeroom-bootleg/05.%20Bulleya%20(DnB)%20-%20Jsm33t.mp3");
+    }
+
+
+    initParallax(){
+        
     }
 }

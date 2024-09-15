@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import initAOS, { cleanAOS } from '../../../library/invokers/animate-on-scroll';
-import { disableParallax, initParallax } from '../../../library/invokers/parallax';
+// import { disableParallax, initParallax } from '../../../library/invokers/parallax';
 import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { environment } from '../../../../environment/environment';
@@ -35,11 +35,11 @@ export class HomeComponent {
 
 	ngOnDestroy(): void {
 		cleanAOS();
-        disableParallax();
+        //disableParallax();
 	}
 
 	ngOnInit(): void {
-		initParallax();
+		//initParallax();
 		initAOS();
 	}
 }

@@ -1,26 +1,58 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { disableParallax, initParallax } from '../../library/invokers/parallax';
 import initAOS, { cleanAOS } from '../../library/invokers/animate-on-scroll';
 import { audioRequestService } from '../shared/audio-player/audio-player.component';
 import { environment } from '../../../environment/environment';
+import Parallax from 'parallax-js';
+import { ParallaxService } from '../../services/parallax.service';
 
 @Component({
-	selector: 'app-home',
-	standalone: true,
-	imports: [RouterModule],
-	templateUrl: './home.component.html',
-	styleUrl: './home.component.css',
+    selector: 'app-home',
+    standalone: true,
+    imports: [RouterModule],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit, OnDestroy {
-webassets: string = environment.cdnUrl ;
-	ngOnDestroy(): void {
-		cleanAOS();
-        disableParallax();
-	}
-	ngOnInit(): void {
-		initAOS();
-		initParallax();
-	}
+
+    webassets: string = environment.cdnUrl;
+    //private parallaxInstance: Parallax | null = null;
+
+    constructor(private parallaxService: ParallaxService) {}
+
+    ngOnInit(): void {
+        this.initAOS();
+        this.parallaxService.initParallax("scene");
+    }
+
+    ngOnDestroy(): void {
+        this.cleanAOS();
+        this.parallaxService.destroyParallax("scene");
+    }
+
+    private initAOS(): void {
+        initAOS();
+    }
+
+    private cleanAOS(): void {
+        // Clean up AOS
+        cleanAOS();
+    }
+
+    // private initParallax(): void {
+    //     const scene = document.getElementById('scene') as HTMLElement;
+    //     if (scene) {
+    //         this.parallaxInstance = new Parallax(scene, {
+    //             relativeInput: true
+    //         });
+    //     }
+    // }
+
+    // private destroyParallax(): void {
+    //     if (this.parallaxInstance) {
+    //         this.parallaxInstance.destroy();
+    //         this.parallaxInstance = null;
+    //     }
+    // }
 
 }

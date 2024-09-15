@@ -1,13 +1,13 @@
 {
-  "title": "Home - Almondcove",
-  "description": "Welcome to the home page of Your App Name.",
-  "keywords": "home, your app, landing,almondcove,bootleg,remixes, music ,portfolio,jsm33t",
+  "title": "Studio | JSM33T",
+  "description": "",
+  "keywords": "home, your app, landing,jsm33t,bootleg,remixes, music ,portfolio,jsm33t",
   "og:title": "Home - Your App Name",
   "og:description": "Welcome to the home page of Your App Name.",
   "og:image": "URL_to_home_image",
-  "og:url": "https://almondcove.in/home",
+  "og:url": "https://jsm33t.me",
   "twitter:card": "summary_large_image",
-  "twitter:title": "Home - Almondcove",
+  "twitter:title": "Home - jsm33t",
   "twitter:description": "Welcome to the home page of Your App Name.",
   "twitter:image": "URL_to_home_image"
 }

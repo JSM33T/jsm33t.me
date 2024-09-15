@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import initAOS, { cleanAOS, disableAOS, enableAOS } from '../../../library/invokers/animate-on-scroll';
 import { AudioPlayerComponent, audioRequestService } from "../audio-player/audio-player.component";
-import { disableParallax, enableParallax, initParallax } from '../../../library/invokers/parallax';
+// import { disableParallax, enableParallax, initParallax } from '../../../library/invokers/parallax';
 import { DefaultScrollbar, DisableScrollbar, SkinnyScrollbar } from '../../../library/helpers/scrollbarhelper';
 
 @Component({
@@ -14,10 +14,10 @@ import { DefaultScrollbar, DisableScrollbar, SkinnyScrollbar } from '../../../li
 export class SidePanelComponent implements OnInit {
 
     enableParallax() {
-        enableParallax();
+        //enableParallax();
     }
     disableParallax() {
-        disableParallax()
+        //disableParallax()
     }
     isAnimationEnabled: boolean = true;
 
@@ -33,20 +33,20 @@ export class SidePanelComponent implements OnInit {
         if (anim != null && anim == "false") {
             this.disableAnimations();
             this.isAnimationEnabled = false;
-            disableParallax();
+            //disableParallax();
         }
     }
     disableAnimations() {
         localStorage.setItem("animations", "false")
         this.isAnimationEnabled = false;
         disableAOS();
-        disableParallax();
+       // disableParallax();
     }
     enableAnimations() {
         localStorage.setItem("animations", "true")
         this.isAnimationEnabled = true;
         enableAOS();
-        initParallax();
+        //initParallax();
         initAOS();
         cleanAOS();
     }
