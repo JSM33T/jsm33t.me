@@ -31,29 +31,25 @@ export class LoaderComponent implements OnInit, OnDestroy {
 
 	serverHealthCheck() {
 		const response$: Observable<APIResponse<any>> = this.httpService.get('');
- 
-        if(environment.production == true)
-        {
-            this.responseHandler.handleResponse(response$, false).subscribe({
-                next: (response) => {
-                    //console.log(response);
-                    this.stopTextRotation();
-                    if (response.status == 200) {
-                        this.completeLoading();
-                    } else {
-                        this.failedResponse();
-                    }
-                },
-                error: (error) => {
-                    this.failedResponse();
-                },
-            });
-        }
-        else
-        {
-            this.completeLoading();
-        }
-		
+
+		if (environment.production == true) {
+			this.responseHandler.handleResponse(response$, false).subscribe({
+				next: (response) => {
+					//console.log(response);
+					this.stopTextRotation();
+					if (response.status == 200) {
+						this.completeLoading();
+					} else {
+						this.failedResponse();
+					}
+				},
+				error: (error) => {
+					this.failedResponse();
+				},
+			});
+		} else {
+			this.completeLoading();
+		}
 	}
 
 	ngOnDestroy(): void {

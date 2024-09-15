@@ -7,52 +7,50 @@ import Parallax from 'parallax-js';
 import { ParallaxService } from '../../services/parallax.service';
 
 @Component({
-    selector: 'app-home',
-    standalone: true,
-    imports: [RouterModule],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.css',
+	selector: 'app-home',
+	standalone: true,
+	imports: [RouterModule],
+	templateUrl: './home.component.html',
+	styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit, OnDestroy {
+	webassets: string = environment.cdnUrl;
+	//private parallaxInstance: Parallax | null = null;
 
-    webassets: string = environment.cdnUrl;
-    //private parallaxInstance: Parallax | null = null;
+	constructor(private parallaxService: ParallaxService) {}
 
-    constructor(private parallaxService: ParallaxService) {}
+	ngOnInit(): void {
+		this.initAOS();
+		this.parallaxService.initParallax('scene');
+	}
 
-    ngOnInit(): void {
-        this.initAOS();
-        this.parallaxService.initParallax("scene");
-    }
+	ngOnDestroy(): void {
+		this.cleanAOS();
+		this.parallaxService.destroyParallax('scene');
+	}
 
-    ngOnDestroy(): void {
-        this.cleanAOS();
-        this.parallaxService.destroyParallax("scene");
-    }
+	private initAOS(): void {
+		initAOS();
+	}
 
-    private initAOS(): void {
-        initAOS();
-    }
+	private cleanAOS(): void {
+		// Clean up AOS
+		cleanAOS();
+	}
 
-    private cleanAOS(): void {
-        // Clean up AOS
-        cleanAOS();
-    }
+	// private initParallax(): void {
+	//     const scene = document.getElementById('scene') as HTMLElement;
+	//     if (scene) {
+	//         this.parallaxInstance = new Parallax(scene, {
+	//             relativeInput: true
+	//         });
+	//     }
+	// }
 
-    // private initParallax(): void {
-    //     const scene = document.getElementById('scene') as HTMLElement;
-    //     if (scene) {
-    //         this.parallaxInstance = new Parallax(scene, {
-    //             relativeInput: true
-    //         });
-    //     }
-    // }
-
-    // private destroyParallax(): void {
-    //     if (this.parallaxInstance) {
-    //         this.parallaxInstance.destroy();
-    //         this.parallaxInstance = null;
-    //     }
-    // }
-
+	// private destroyParallax(): void {
+	//     if (this.parallaxInstance) {
+	//         this.parallaxInstance.destroy();
+	//         this.parallaxInstance = null;
+	//     }
+	// }
 }

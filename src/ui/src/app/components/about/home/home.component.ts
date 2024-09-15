@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { environment } from '../../../../environment/environment';
 
-
 @Component({
 	selector: 'app-home',
 	standalone: true,
@@ -14,7 +13,7 @@ import { environment } from '../../../../environment/environment';
 	styleUrl: './home.component.css',
 })
 export class HomeComponent {
-    webassets:string = environment.cdnUrl;
+	webassets: string = environment.cdnUrl;
 	socialLinks = [
 		{
 			platform: 'Instagram',
@@ -35,7 +34,7 @@ export class HomeComponent {
 
 	ngOnDestroy(): void {
 		cleanAOS();
-        //disableParallax();
+		//disableParallax();
 	}
 
 	ngOnInit(): void {

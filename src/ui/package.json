@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prerender": "ng run UI:prerender",
-    "prettify": " npx prettier --write \"src/**/*.ts\" \"src/**/*.ts\" \"src/**/*.html\" \"src/**/*.component.html\""
+    "prettify": "npx prettier --write \"src/**/*.ts\" \"src/**/*.ts\" \"src/**/*.html\" \"src/**/*.component.html\""
   },
   "private": true,
   "dependencies": {

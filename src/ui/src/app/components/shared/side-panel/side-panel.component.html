@@ -8,7 +8,7 @@
 		<button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	</div>
 	<div class="offcanvas-body">
-        <div class="d-flex align-items-center mt-n2 mb-3 pt-4">
+		<div class="d-flex align-items-center mt-n2 mb-3 pt-4">
 			<i class="ai-maximize text-body-secondary fs-5 me-2"></i>
 			<h5 class="mb-0">Media player</h5>
 		</div>
@@ -37,9 +37,9 @@
 			<div class="card-header py-2">Font Fam</div>
 			<div class="card-body py-2">
 				<select class="form-select py-2" id="root-font-size">
-                    <option value="consolas">Default</option>
-                    <option value=".875rem">Other font</option>
-                  </select>
+					<option value="consolas">Default</option>
+					<option value=".875rem">Other font</option>
+				</select>
 			</div>
 
 			<div class="card-header py-2">Font Size</div>
@@ -67,12 +67,15 @@
 		</div>
 
 		<div class="card text-center card border-0 bg-secondary mb-2">
-			<div class="card-header py-2 mb-2">Scrollbar<span class="text-danger fs-xs ms-2">wip</span></div>
+			<div class="card-header py-2 mb-2">
+				Scrollbar
+				<span class="text-danger fs-xs ms-2">wip</span>
+			</div>
 			<div class="card-body py-2">
 				<div class="btn-group w-100" role="group" aria-label="Outline button group">
 					<button type="button" (click)="defaultScrollbar()" class="btn btn-sm btn-outline-primary">Default</button>
 					<button type="button" (click)="disableScrollbar()" class="btn btn-sm btn-outline-primary">Disable</button>
-                    <button type="button" (click)="skinnyScrollbar()" class="btn btn-sm btn-outline-primary">Skiny</button>
+					<button type="button" (click)="skinnyScrollbar()" class="btn btn-sm btn-outline-primary">Skiny</button>
 				</div>
 			</div>
 		</div>

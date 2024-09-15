@@ -1,40 +1,29 @@
 <div *ngIf="currentAudio" class="card text-center card border-0 bg-secondary">
-    <div class="card-header">{{ currentAudio }}</div>
-    <div class="card-body">
-        <div class="seek-panel">
-          <input 
-            type="range" 
-            [min]="0" 
-            [max]="duration" 
-            [value]="currentTime" 
-            (input)="onSeek($event)"
-            class="seek-bar"
-          >
-          <div class="time-display">
-            {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
-          </div>
-        </div>
-        <div class="controls">
-
-
-            <div class="btn-group w-100" role="group" aria-label="Outline button group">
-				<button type="button" (click)="togglePlay()" class="btn btn-sm btn-outline-primary"> <i [class]="isPlaying ? 'ai-pause' : 'ai-play'"></i></button>
+	<div class="card-header">{{ currentAudio }}</div>
+	<div class="card-body">
+		<div class="seek-panel">
+			<input type="range" [min]="0" [max]="duration" [value]="currentTime" (input)="onSeek($event)" class="seek-bar" />
+			<div class="time-display">{{ formatTime(currentTime) }} / {{ formatTime(duration) }}</div>
+		</div>
+		<div class="controls">
+			<div class="btn-group w-100" role="group" aria-label="Outline button group">
+				<button type="button" (click)="togglePlay()" class="btn btn-sm btn-outline-primary"><i [class]="isPlaying ? 'ai-pause' : 'ai-play'"></i></button>
 				<button type="button" (click)="stop()" class="btn btn-sm btn-outline-primary"><i class="ai-octagon"></i></button>
 			</div>
 
-          <!-- <button (click)="togglePlay()" class="btn btn-outline-primary">
+			<!-- <button (click)="togglePlay()" class="btn btn-outline-primary">
             <i [class]="isPlaying ? 'ai-pause' : 'ai-play'"></i>
           </button>
           <button (click)="stop()" class="btn btn-outline-primary">
             <i class="ai-octagon"></i>
           </button> -->
-        </div>
-    </div>
-    <div class="card-footer fs-sm text-body-secondary">3 days ago</div>
-  </div>
+		</div>
+	</div>
+	<div class="card-footer fs-sm text-body-secondary">3 days ago</div>
+</div>
 
-  <div *ngIf="!currentAudio">
-    <div class="card text-center card border-0 bg-secondary mb-2 wip">
-        <div class="card-body py-3">Player inactive</div>
-    </div>
-  </div>
+<div *ngIf="!currentAudio">
+	<div class="card text-center card border-0 bg-secondary mb-2 wip">
+		<div class="card-body py-3">Player inactive</div>
+	</div>
+</div>

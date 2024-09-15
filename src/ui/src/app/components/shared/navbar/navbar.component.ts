@@ -7,70 +7,70 @@ import acLogout from '../../../library/modals/logout.modal';
 import { environment } from '../../../../environment/environment';
 
 interface UserClaims {
-    username: string;
-    pfp: string;
-    firstname: string;
+	username: string;
+	pfp: string;
+	firstname: string;
 }
 
 @Component({
-    selector: 'app-navbar',
-    standalone: true,
-    imports: [RouterModule, NgClass, NgIf, NgFor],
-    templateUrl: './navbar.component.html',
-    styleUrl: './navbar.component.css',
+	selector: 'app-navbar',
+	standalone: true,
+	imports: [RouterModule, NgClass, NgIf, NgFor],
+	templateUrl: './navbar.component.html',
+	styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-    webassets: string = environment.cdnUrl;
+	webassets: string = environment.cdnUrl;
 
-    constructor(
-        private renderer: Renderer2,
-        private router: Router,
-    ) { }
+	constructor(
+		private renderer: Renderer2,
+		private router: Router,
+	) {}
 
-    user: UserClaims = {
-        username: '',
-        pfp: '',
-        firstname: '',
-    };
+	user: UserClaims = {
+		username: '',
+		pfp: '',
+		firstname: '',
+	};
 
-    logout() {
-        localStorage.removeItem('token');
-        this.reloadComponent(true, '/');
-    }
+	logout() {
+		localStorage.removeItem('token');
+		this.reloadComponent(true, '/');
+	}
 
-    isLoggedIn: boolean = false;
+	isLoggedIn: boolean = false;
 
-    ngOnInit(): void {
-        initializeThemeSwitcher();
-        this.navToggler();
-        const token = localStorage.getItem('token'); // Retrieve your JWT token from local storage
-        if (token) {
-            const decodedToken = jwtDecode(token) as any;
-            console.log(decodedToken);
-            this.user.username = decodedToken.username; // Extract username from the decoded token
-            this.user.pfp = decodedToken.profilePicture; // Extract profile picture from the decoded token
-            this.isLoggedIn = true;
-        } else {
-            this.isLoggedIn = false;
-        }
-    }
+	ngOnInit(): void {
+		initializeThemeSwitcher();
+		this.navToggler();
+		const token = localStorage.getItem('token'); // Retrieve your JWT token from local storage
+		if (token) {
+			const decodedToken = jwtDecode(token) as any;
+			console.log(decodedToken);
+			this.user.username = decodedToken.username; // Extract username from the decoded token
+			this.user.pfp = decodedToken.profilePicture; // Extract profile picture from the decoded token
+			this.isLoggedIn = true;
+		} else {
+			this.isLoggedIn = false;
+		}
+	}
 
-    navToggler() {
-        const button = document.querySelector('button.navbar-toggler') as HTMLButtonElement;
-        if (button.getAttribute('aria-expanded') === 'true') {
-            const bb = document.querySelector('.navbar-toggler') as HTMLButtonElement;
-            bb.click();
-        }
-    }
+	navToggler() {
+		const button = document.querySelector('button.navbar-toggler') as HTMLButtonElement;
+		if (button.getAttribute('aria-expanded') === 'true') {
+			const bb = document.querySelector('.navbar-toggler') as HTMLButtonElement;
+			bb.click();
+		}
+	}
 
-    reloadComponent(self: boolean, urlToNavigateTo?: string) {
-        //skipLocationChange:true means dont update the url to / when navigating
-        console.log('Current route I am on:', this.router.url);
-        const url = self ? this.router.url : urlToNavigateTo;
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate([`/${url}`]).then(() => {
-                console.log(`After navigation I am on:${this.router.url}`);
-            });
-        });
-    }
+	reloadComponent(self: boolean, urlToNavigateTo?: string) {
+		//skipLocationChange:true means dont update the url to / when navigating
+		console.log('Current route I am on:', this.router.url);
+		const url = self ? this.router.url : urlToNavigateTo;
+		this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+			this.router.navigate([`/${url}`]).then(() => {
+				console.log(`After navigation I am on:${this.router.url}`);
+			});
+		});
+	}
 }

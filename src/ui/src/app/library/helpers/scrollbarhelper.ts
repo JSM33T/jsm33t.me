@@ -1,13 +1,11 @@
-export function DefaultScrollbar()
-{
-    const sty = document.getElementById("scrollbar") as HTMLStyleElement;
-    sty.innerHTML = "";
-
+export function DefaultScrollbar() {
+	const sty = document.getElementById('scrollbar') as HTMLStyleElement;
+	sty.innerHTML = '';
 }
 
-export function DisableScrollbar(){
-    const sty = document.getElementById("scrollbar") as HTMLElement;
-    sty.innerHTML= `
+export function DisableScrollbar() {
+	const sty = document.getElementById('scrollbar') as HTMLElement;
+	sty.innerHTML = `
     body::-webkit-scrollbar {
 				width: 0px;
 			}
@@ -34,9 +32,9 @@ export function DisableScrollbar(){
                 `;
 }
 
-export function SkinnyScrollbar(){
-    const sty = document.getElementById("scrollbar") as HTMLElement;
-    sty.innerHTML= `
+export function SkinnyScrollbar() {
+	const sty = document.getElementById('scrollbar') as HTMLElement;
+	sty.innerHTML = `
     body::-webkit-scrollbar {
 				width: 08px;
 			}

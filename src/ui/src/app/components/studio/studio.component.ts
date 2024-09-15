@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
 	selector: 'app-studio',
@@ -9,6 +9,4 @@ import {  RouterOutlet } from '@angular/router';
 	styleUrl: './studio.component.css',
 	providers: [],
 })
-export class StudioComponent {
-	
-}
+export class StudioComponent {}
