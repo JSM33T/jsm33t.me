@@ -16,9 +16,10 @@ namespace Jsm33t.API.Controllers.Dedicated
 {
     [Route("api/blog")]
     [ApiController]
-    public class BlogController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IBlogRepository BlogRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
+    public class BlogController(IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IBlogRepository BlogRepository,IHttpService httpService) : FoundationController(config, logger, httpContextAccessor, telegramService)
     {
         private readonly IBlogRepository _BlogRepo = BlogRepository;
+        private readonly IHttpService _httpService = httpService;
 
         [HttpPost("search")]
         #region Paginated blogs with search criteria
@@ -58,7 +59,9 @@ namespace Jsm33t.API.Controllers.Dedicated
                 Blog_GetDetails BlogDetails = new();
                 Blog Blog = new();
 
-                var filePath = Path.Combine("wwwroot", "content", "blogs", year, slug, $"content.md");
+                var filePath = $"{config.CurrentValue.Paths.CDNURL}/blogs/{year}/{slug}/content.md";
+
+
                 Blog = await _BlogRepo.GetBlogDetailsBySlug(slug);
                 if (Blog != null)
                 {
@@ -67,13 +70,12 @@ namespace Jsm33t.API.Controllers.Dedicated
                     BlogDetails.DateAdded = Blog.DateAdded;
                     BlogDetails.Id = Blog.Id;
 
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        BlogDetails.Content = await System.IO.File.ReadAllTextAsync(filePath);
+                    
+                        BlogDetails.Content = await _httpService.GetFileContentAsync(filePath);
                         statusCode = StatusCodes.Status200OK;
                         BlogDetails.Authors = await _BlogRepo.GetBlogAuthorsByBlogId(BlogDetails.Id);
                         message = "Retrieved";
-                    }
+                   
                 }
                 else
                 {

@@ -7,6 +7,7 @@
         public JwtSettings JwtSettings { get; set; }
         public SmtpSettings SmtpSettings { get; set; }
         public TelegramBotSettings TelegramBot { get; set; }
+        public Paths Paths { get; set; }
     }
 
     public class CryptographySettings
@@ -38,6 +39,10 @@
         public string BotToken { get; set; }
         public string LogChatId { get; set; }
         public bool LogToTele { get; set; }
+    }
+
+    public class Paths {
+        public string CDNURL { get; set; }
     }
 
 }

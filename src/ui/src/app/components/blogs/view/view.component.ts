@@ -63,9 +63,18 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 					this.dateAdded = response.data.dateAdded;
 
 					const markdownContent = response.data.content;
-					const htmlContent = await marked(markdownContent);
+                    if(markdownContent)
+                    {
+                        const htmlContent = await marked(markdownContent);
+                        this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
+                    }
+                    else
+                    {
+                        this.content = "error fetching the blog...";
+                    }
+					
 					this.authors = response.data.authors;
-					this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
+					
 					setTimeout(() => {
 						this.setProps();
 						initAOS();

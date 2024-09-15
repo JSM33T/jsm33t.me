@@ -78,6 +78,9 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<ITelegramService, TelegramService>();
 
+builder.Services.AddHttpClient<IHttpService, HttpService>();
+
+
 
 builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(Jsm33tConfig.ConnectionString));
 
