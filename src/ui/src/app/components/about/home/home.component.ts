@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import initAOS, { cleanAOS } from '../../../library/invokers/animate-on-scroll';
-import { initParallax } from '../../../library/invokers/parallax';
+import { disableParallax, initParallax } from '../../../library/invokers/parallax';
 import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { environment } from '../../../../environment/environment';
+
 
 @Component({
 	selector: 'app-home',
@@ -12,6 +14,7 @@ import { NgFor } from '@angular/common';
 	styleUrl: './home.component.css',
 })
 export class HomeComponent {
+    webassets:string = environment.cdnUrl;
 	socialLinks = [
 		{
 			platform: 'Instagram',
@@ -32,10 +35,11 @@ export class HomeComponent {
 
 	ngOnDestroy(): void {
 		cleanAOS();
+        disableParallax();
 	}
 
 	ngOnInit(): void {
-		//initParallax();
+		initParallax();
 		initAOS();
 	}
 }

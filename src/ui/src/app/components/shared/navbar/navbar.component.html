@@ -58,7 +58,7 @@
 		<div class="dropdown nav d-none d-sm-block order-lg-3">
 			@if (isLoggedIn) {
 				<a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="border rounded-circle" src="assets/images/home/avatar.jpg" width="48" alt="{{ user.username }}" />
+					<img class="border rounded-circle" src="{{webassets}}/webassets/images/home/avatar.jpg" width="48" alt="{{ user.username }}" />
 					<div class="ps-2">
 						<div class="fs-xs lh-1 opacity-60">Hello,</div>
 						<div class="fs-sm dropdown-toggle">{{ user.username }}</div>
@@ -96,7 +96,7 @@
 				</div>
 			} @else {
 				<a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="border rounded-circle" src="assets/images/home/avatar.jpg" width="48" alt="guest" />
+					<img class="border rounded-circle" src="{{webassets}}/webassets/images/home/avatar.jpg" width="48" alt="guest" />
 					<div class="ps-2">
 						<div class="fs-xs lh-1 opacity-60">Hello,</div>
 						<div class="fs-sm dropdown-toggle">Guest</div>
@@ -130,15 +130,15 @@
                           <ul class="list-unstyled mb-0">
                             <li>
                               <a class="dropdown-item disabled" routerLink="/studio">Home</a>
-                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 rounded-3 rounded-start-0" style="background-image: url(assets/img/megamenu/landings.jpg);"></span>
+                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 rounded-3 rounded-start-0" style="background-image: url({{webassets}}/webassets/img/megamenu/landings.jpg);"></span>
                             </li>
                             <li>
                               <a class="dropdown-item disabled" href="landing-marketing-agency.html">Radio features</a>
-                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url(assets/img/megamenu/marketing-agency.jpg);"></span>
+                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url({{webassets}}/webassets/img/megamenu/marketing-agency.jpg);"></span>
                             </li>
                             <li>
                                 <a class="dropdown-item disabled" href="landing-marketing-agency.html">Discography</a>
-                                <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url(assets/img/megamenu/marketing-agency.jpg);"></span>
+                                <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url({{webassets}}/webassets/img/megamenu/marketing-agency.jpg);"></span>
                               </li>
                           </ul>
                         </div>
@@ -146,14 +146,14 @@
                           <ul class="list-unstyled mb-0">
                             <li>
                               <a class="dropdown-item disabled" href="landing-creative-agency.html">Sample packs</a>
-                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url(assets/img/megamenu/creative-agency.jpg);"></span>
+                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url({{webassets}}/webassets/img/megamenu/creative-agency.jpg);"></span>
                             <li>
                               <a class="dropdown-item disabled" href="landing-yoga-studio.html">Projects</a>
-                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url(assets/img/megamenu/yoga-studio.jpg);"></span>
+                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url({{webassets}}/webassets/img/megamenu/yoga-studio.jpg);"></span>
                             </li>
                             <li>
                               <a class="dropdown-item" href="landing-influencer.html">Picks</a>
-                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url(assets/img/megamenu/influencer.jpg);"></span>
+                              <span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0" style="background-image: url({{webassets}}/webassets/img/megamenu/influencer.jpg);"></span>
                             </li>
                           </ul>
                         </div>
@@ -192,7 +192,7 @@
 					<!-- User signed in state. Account dropdown on screens > 576px -->
 					<li class="nav-item dropdown d-sm-none border-top mt-2 pt-2">
 						<a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-							<img class="border rounded-circle" src="assets/images/home/avatar.jpg" width="48" alt="guest" />
+							<img class="border rounded-circle" src="{{webassets}}/webassets/images/home/avatar.jpg" width="48" alt="guest" />
 							<div class="ps-2">
 								<div class="fs-xs lh-1 opacity-60">Hello,</div>
 								<div class="fs-sm dropdown-toggle">{{ user.username }}</div>
@@ -231,7 +231,7 @@
 				} @else {
 					<li class="nav-item dropdown d-sm-none border-top mt-2 pt-2">
 						<a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-							<img class="border rounded-circle" src="assets/images/home/avatar.jpg" width="48" alt="Isabella Bocouse" />
+							<img class="border rounded-circle" src="{{webassets}}/webassets/images/home/avatar.jpg" width="48" alt="Isabella Bocouse" />
 							<div class="ps-2">
 								<div class="fs-xs lh-1 opacity-60">Hello,</div>
 								<div class="fs-sm dropdown-toggle">Guest</div>
@@ -239,7 +239,7 @@
 						</a>
 						<div class="dropdown-menu">
 							<h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
-							<a class="dropdown-item disabled" href="account-overview.html">
+							<a class="dropdown-item" routerLink="/account/signup">
 								<i class="ai-user-check fs-lg opacity-70 me-2"></i>
 								Login/Signup
 							</a>

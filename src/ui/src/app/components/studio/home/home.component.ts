@@ -5,6 +5,7 @@ import { InitMasonryGrid } from "../../../library/invokers/masonry_grid";
 import Initswiper from "../../../library/invokers/swiper";
 import { NgFor, NgOptimizedImage } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { environment } from "../../../../environment/environment";
 
 @Component({
 	selector: 'app-home',
@@ -15,6 +16,9 @@ import { RouterLink } from "@angular/router";
 	providers: [],
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+
+webAssets : string = environment.cdnUrl;
+
 	ngAfterViewInit(): void {
 		this.cleanupFn = InitMasonryGrid();
 	}
@@ -25,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	private cleanupFn?: () => void;
-	assetLocation: string = 'assets/content/studio/';
+	assetLocation: string = environment.cdnUrl + '/webassets/studio/';
 	items = studioItems;
 	
 
