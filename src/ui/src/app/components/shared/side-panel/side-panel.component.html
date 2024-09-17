@@ -8,7 +8,7 @@
 		<button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	</div>
 	<div class="offcanvas-body">
-        <div class="card text-center card border-0 bg-secondary mb-2">
+		<div class="card text-center card border-0 bg-secondary mb-2">
 			<div class="card-header py-2 mb-2">Prefs</div>
 			<div class="card-body py-2">
 				<div class="btn-group w-100" role="group" aria-label="Outline button group">
@@ -82,7 +82,7 @@
 			</div>
 			<div class="card-body py-2">
 				<div class="btn-group w-100" role="group" aria-label="Outline button group">
-					<button type="button" (click)="defaultScrollbar()"  [class.active]="currentScrollState === ScrollbarState.Default"  class="btn btn-sm btn-outline-primary">Default</button>
+					<button type="button" (click)="defaultScrollbar()" [class.active]="currentScrollState === ScrollbarState.Default" class="btn btn-sm btn-outline-primary">Default</button>
 					<button type="button" (click)="disableScrollbar()" [class.active]="currentScrollState === ScrollbarState.Disable" class="btn btn-sm btn-outline-primary">Disable</button>
 					<button type="button" (click)="skinnyScrollbar()" [class.active]="currentScrollState === ScrollbarState.Skinny" class="btn btn-sm btn-outline-primary">Skiny</button>
 				</div>

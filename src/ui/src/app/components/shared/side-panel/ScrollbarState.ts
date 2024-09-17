@@ -1,5 +1,5 @@
 export enum ScrollbarState {
-    Default,
-    Disable,
-    Skinny
-  }
+	Default,
+	Disable,
+	Skinny,
+}

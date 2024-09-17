@@ -11,145 +11,140 @@ import initAOS, { cleanAOS, refreshAOS } from '../../../library/invokers/animate
 import { AddBlogPropDirective } from '../../../blog-dom.directive';
 
 @Component({
-    selector: 'app-view',
-    standalone: true,
-    imports: [NgIf, NgFor, RouterModule, AddBlogPropDirective, NgClass],
-    templateUrl: './view.component.html',
-    styleUrls: ['./view.component.css'], // Corrected to styleUrls
+	selector: 'app-view',
+	standalone: true,
+	imports: [NgIf, NgFor, RouterModule, AddBlogPropDirective, NgClass],
+	templateUrl: './view.component.html',
+	styleUrls: ['./view.component.css'], // Corrected to styleUrls
 })
 export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
-    slug: string = '';
-    year: string = '';
-    title: string = '';
-    authors: any = [];
-    dateAdded: string = '';
-    imagesArray: any = [];
-    blogTitle: string = '';
-    isLoading = true;
-    content: SafeHtml = '';
-    isLiked: boolean = false;
+	slug: string = '';
+	year: string = '';
+	title: string = '';
+	authors: any = [];
+	dateAdded: string = '';
+	imagesArray: any = [];
+	blogTitle: string = '';
+	isLoading = true;
+	content: SafeHtml = '';
+	isLiked: boolean = false;
 
-    constructor(
-        private route: ActivatedRoute,
-        private httpService: HttpService,
-        private responseHandler: ResponseHandlerService,
-        private sanitizer: DomSanitizer,
-        private el: ElementRef,
-        private renderer: Renderer2,
-    ) { }
+	constructor(
+		private route: ActivatedRoute,
+		private httpService: HttpService,
+		private responseHandler: ResponseHandlerService,
+		private sanitizer: DomSanitizer,
+		private el: ElementRef,
+		private renderer: Renderer2,
+	) {}
 
-    ngOnInit(): void {
-        this.slug = this.route.snapshot.paramMap.get('slug')!;
-        this.year = this.route.snapshot.paramMap.get('year')!;
-        this.getData();
-        this.getLikeStat();
-    }
-    ngAfterViewInit(): void {
-        initAOS();
-    }
-    ngOnDestroy(): void {
-        cleanAOS();
-    }
+	ngOnInit(): void {
+		this.slug = this.route.snapshot.paramMap.get('slug')!;
+		this.year = this.route.snapshot.paramMap.get('year')!;
+		this.getData();
+		this.getLikeStat();
+	}
+	ngAfterViewInit(): void {
+		initAOS();
+	}
+	ngOnDestroy(): void {
+		cleanAOS();
+	}
 
-    setProps() { }
+	setProps() {}
 
-    //props to loaded blog
-    addClasses()
-    {
-        const imgTag = this.el.nativeElement.querySelectorAll('img');
-        imgTag.forEach((imgTag: HTMLElement) => {
-            this.renderer.addClass(imgTag, 'w-100');
-          });
+	//props to loaded blog
+	addClasses() {
+		const imgTag = this.el.nativeElement.querySelectorAll('img');
+		imgTag.forEach((imgTag: HTMLElement) => {
+			this.renderer.addClass(imgTag, 'w-100');
+		});
 
-        const pTags = this.el.nativeElement.querySelectorAll('p');
-        pTags.forEach((pTag: HTMLElement) => {
-          this.renderer.addClass(pTag, 'fs-lg');
-        });
+		const pTags = this.el.nativeElement.querySelectorAll('p');
+		pTags.forEach((pTag: HTMLElement) => {
+			this.renderer.addClass(pTag, 'fs-lg');
+		});
 
+		const aTags = this.el.nativeElement.querySelectorAll('a');
+		aTags.forEach((aTag: HTMLElement) => {
+			this.renderer.setAttribute(aTag, 'target', '_blank');
+		});
+	}
 
-        const aTags = this.el.nativeElement.querySelectorAll('a');
-        aTags.forEach((aTag: HTMLElement) => {
-          this.renderer.setAttribute(aTag,"target", '_blank');
-        });
-    }
-    
+	getData() {
+		const response$: Observable<APIResponse<any>> = this.httpService.get(`api/blog/load/${this.year}/${this.slug}`);
 
-    getData() {
-        const response$: Observable<APIResponse<any>> = this.httpService.get(`api/blog/load/${this.year}/${this.slug}`);
+		this.responseHandler.handleResponse(response$, false).subscribe({
+			next: async (response) => {
+				if (response.data) {
+					this.title = response.data.name;
+					this.dateAdded = response.data.dateAdded;
 
-        this.responseHandler.handleResponse(response$, false).subscribe({
-            next: async (response) => {
-                if (response.data) {
-                    this.title = response.data.name;
-                    this.dateAdded = response.data.dateAdded;
+					const markdownContent = response.data.content;
+					if (markdownContent) {
+						const htmlContent = await marked(markdownContent);
+						this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
+						setTimeout(() => {
+							this.addClasses();
+						}, 0);
+					} else {
+						this.content = 'error fetching the blog...';
+					}
 
-                    const markdownContent = response.data.content;
-                    if (markdownContent) {
-                        const htmlContent = await marked(markdownContent);
-                        this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
-                        setTimeout(() => {
-                            this.addClasses();
-                        }, 0);
-                    }
-                    else {
-                        this.content = "error fetching the blog...";
-                    }
-                   
+					this.authors = response.data.authors;
 
-                    this.authors = response.data.authors;
+					setTimeout(() => {
+						this.setProps();
+						initAOS();
+					}, 100);
+				} else {
+					console.log('no markdown data');
+				}
+				this.isLoading = false;
+			},
+			error: (error) => {
+				console.log(error.error);
+				this.isLoading = false;
+			},
+		});
+	}
 
-                    setTimeout(() => {
-                        this.setProps();
-                        initAOS();
-                    }, 100);
-                } else {
-                    console.log('no markdown data');
-                }
-                this.isLoading = false;
-            },
-            error: (error) => {
-                console.log(error.error);
-                this.isLoading = false;
-            },
-        });
-    }
+	togglelike() {
+		this.isLiked = !this.isLiked;
+		const likeData = {
+			slug: this.slug,
+		};
 
-    togglelike() {
-        this.isLiked = !this.isLiked;
-        const likeData = {
-            slug: this.slug,
-        };
+		const response$: Observable<APIResponse<any>> = this.httpService.post(`api/blog/addlike`, likeData);
+		this.responseHandler.handleResponse(response$, false).subscribe({
+			next: async (response) => {
+				// if (response.data) {
+				// } else {
+				// }
+				this.getLikeStat();
+			},
+			error: (error) => {
+				this.getLikeStat();
+				console.log(error.error);
+			},
+		});
+	}
 
-        const response$: Observable<APIResponse<any>> = this.httpService.post(`api/blog/addlike`, likeData);
-        this.responseHandler.handleResponse(response$, false).subscribe({
-            next: async (response) => {
-                // if (response.data) {
-                // } else {
-                // }
-                this.getLikeStat();
-            },
-            error: (error) => {
-                this.getLikeStat();
-                console.log(error.error);
-            },
-        });
-    }
-
-    getLikeStat() {
-        const response$: Observable<APIResponse<any>> = this.httpService.get(`api/blog/getlikestatus/` + this.slug);
-        this.responseHandler.handleResponse(response$, false).subscribe({
-            next: async (response) => {
-                if (response.data) {
-                    console.log(response.data);
-                    this.isLiked = response.data;
-                } else {
-                    this.isLiked = false;
-                }
-            },
-            error: (error) => {
-                console.log(error.error);
-                this.isLiked = false;
-            },
-        });
-    }
+	getLikeStat() {
+		const response$: Observable<APIResponse<any>> = this.httpService.get(`api/blog/getlikestatus/` + this.slug);
+		this.responseHandler.handleResponse(response$, false).subscribe({
+			next: async (response) => {
+				if (response.data) {
+					console.log(response.data);
+					this.isLiked = response.data;
+				} else {
+					this.isLiked = false;
+				}
+			},
+			error: (error) => {
+				console.log(error.error);
+				this.isLiked = false;
+			},
+		});
+	}
 }
