@@ -31,7 +31,7 @@
 					<div class="d-flex" *ngIf="!isLoading; else likePlaceholder">
 						<!-- <button type="button" class="btn btn-outline-danger rounded-pill py-2 mx-2" (click)="togglelike()"> -->
 
-						<button [ngClass]="isLiked ? 'btn-outline-danger btn rounded-pill py-2 mx-2' : 'btn-outline-primary btn rounded-pill py-2 mx-2'" (click)="togglelike()">
+						<button [ngClass]="isLiked ? 'btn-danger btn rounded-pill py-2 mx-2' : 'btn-outline-primary btn rounded-pill py-2 mx-2'" (click)="togglelike()">
 							<i [class]="{ 'ai-heart-filled': isLiked, 'ai-heart': !isLiked }"></i>
 							<span class="px-1">n</span>
 						</button>
