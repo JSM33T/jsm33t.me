@@ -1,4 +1,3 @@
-// src/app/scroll-to-top.ts
 export function initBackToTop() {
 	const button = document.querySelector('.btn-scroll-top');
 	const scrollOffset = 150;

@@ -14,7 +14,7 @@ export function initializeThemeSwitcher() {
 		if (storedTheme) {
 			return storedTheme;
 		}
-		return 'dark';
+		return 'light';
 	};
 
 	const setTheme = (theme: string): void => {
