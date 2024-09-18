@@ -28,7 +28,7 @@ BEGIN
     DECLARE @SQL NVARCHAR(MAX);
     SET @SQL = '
     SELECT @TotalRecords = COUNT(*)
-    FROM tblBlogs
+    FROM tblBlogs WITH (NOLOCK)
     WHERE 1 = 1';
 
     -- SearchString condition
@@ -42,7 +42,7 @@ BEGIN
     BEGIN
         SET @SQL = @SQL + ' AND EXISTS (
             SELECT 1
-            FROM tblBlogCategories
+            FROM tblBlogCategories WITH (NOLOCK)
             WHERE Id = CategoryId
             AND CategoryName = @Category
         )';
@@ -94,7 +94,7 @@ BEGIN
     a.DateAdded,
     @PageNumber AS CurrentPage,
     @TotalPages AS TotalPages
-FROM tblBlogs a
+FROM tblBlogs a WITH (NOLOCK)
 LEFT JOIN tblBlogCategories ac ON a.CategoryId = ac.Id
     WHERE 1 = 1 AND IsActive = 1';
 
