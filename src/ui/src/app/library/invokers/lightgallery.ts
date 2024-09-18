@@ -1,21 +1,27 @@
-//@ts-nocheck
+import lightGallery from 'lightgallery';
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
+import lgFullscreen from 'lightgallery/plugins/fullscreen';
 
-let galleryInstances = [];
+import lgVideo from 'lightgallery/plugins/video';
+
+let galleryInstances: any = [];
 
 export function initializeLightGallery() {
-	deinitializeLightGallery();
+	cleanLightGallery();
 	const gallery = document.querySelectorAll('.gallery');
 
 	if (gallery.length) {
 		for (let i = 0; i < gallery.length; i++) {
-			/* eslint-disable no-undef */
+			//@ts-ignore
 			const thumbnails = gallery[i].dataset.thumbnails ? true : false,
+				//@ts-ignore
 				video = gallery[i].dataset.video ? true : false,
 				defaultPlugins = [lgZoom, lgFullscreen],
 				videoPlugin = video ? [lgVideo] : [],
 				thumbnailPlugin = thumbnails ? [lgThumbnail] : [],
 				plugins = [...defaultPlugins, ...videoPlugin, ...thumbnailPlugin];
-
+			//@ts-ignore
 			const instance = lightGallery(gallery[i], {
 				selector: '.gallery-item',
 				plugins: plugins,
@@ -42,8 +48,9 @@ export function initializeLightGallery() {
 	}
 }
 
-export function deinitializeLightGallery() {
+export function cleanLightGallery() {
 	// Deinitialize existing gallery instances
+	//@ts-ignore
 	galleryInstances.forEach((instance) => {
 		instance.destroy();
 	});

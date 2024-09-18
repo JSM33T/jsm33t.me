@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import initAOS, { cleanAOS } from '../../../library/invokers/animate-on-scroll';
 // import { disableParallax, initParallax } from '../../../library/invokers/parallax';
 import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { environment } from '../../../../environment/environment';
+import { ParallaxService } from '../../../services/parallax.service';
 
 @Component({
 	selector: 'app-home',
@@ -12,7 +13,9 @@ import { environment } from '../../../../environment/environment';
 	templateUrl: './home.component.html',
 	styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
+	constructor(private parallaxService: ParallaxService) {}
+
 	webassets: string = environment.cdnUrl;
 	socialLinks = [
 		{
@@ -33,12 +36,12 @@ export class HomeComponent {
 	];
 
 	ngOnDestroy(): void {
+		this.parallaxService.destroyParallax('scene');
 		cleanAOS();
-		//disableParallax();
 	}
 
 	ngOnInit(): void {
-		//initParallax();
+		this.parallaxService.initParallax('scene');
 		initAOS();
 	}
 }

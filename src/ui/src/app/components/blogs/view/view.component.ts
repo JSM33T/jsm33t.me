@@ -8,6 +8,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import initAOS, { cleanAOS, refreshAOS } from '../../../library/invokers/animate-on-scroll';
+import { cleanLightGallery, initializeLightGallery } from '../../../library/invokers/lightgallery';
 
 @Component({
 	selector: 'app-view',
@@ -48,6 +49,7 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 		initAOS();
 	}
 	ngOnDestroy(): void {
+		cleanLightGallery();
 		cleanAOS();
 	}
 
@@ -58,6 +60,8 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 		const imgTag = this.el.nativeElement.querySelectorAll('img');
 		imgTag.forEach((imgTag: HTMLElement) => {
 			this.renderer.addClass(imgTag, 'w-100');
+			this.renderer.addClass(imgTag, 'gallery-item');
+			this.renderer.addClass(imgTag, 'img_pointer');
 		});
 
 		const pTags = this.el.nativeElement.querySelectorAll('p');
@@ -86,6 +90,7 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 						this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
 						setTimeout(() => {
 							this.addClasses();
+							initializeLightGallery();
 						}, 0);
 					} else {
 						this.content = 'error fetching the blog...';
