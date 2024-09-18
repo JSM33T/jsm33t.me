@@ -135,6 +135,23 @@ namespace Jsm33t.Repositories
             
         }
 
+        public async Task<int> GetBlogLikesCount(string Slug) {
+            using IDbConnection dbConnection = new SqlConnection(_conStr);
+            var query = $"SELECT COUNT(*) as LikeCount FROM tblBlogLikes L, tblBlogs B WHERE B.Slug = '{Slug}' and L.BlogId = B.Id";
+
+            int likeCount = await dbConnection.ExecuteScalarAsync<int>(query, new { Slug = Slug });
+
+            //if (!= null)
+            //{
+            //    Blog.Authors = await GetBlogAuthorsByBlogId(Blog.Id);
+            //}
+            //else
+            //{
+            //    Blog.Authors = [];
+            //}
+
+            return likeCount;
+        }
 
     }
 }

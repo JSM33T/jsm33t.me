@@ -10,6 +10,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Security.Claims;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Jsm33t.API.Controllers.Dedicated
@@ -61,7 +62,6 @@ namespace Jsm33t.API.Controllers.Dedicated
 
                 var filePath = $"{config.CurrentValue.Paths.CDNURL}/blogs/{year}/{slug}/content.md";
 
-
                 Blog = await _BlogRepo.GetBlogDetailsBySlug(slug);
                 if (Blog != null)
                 {
@@ -75,7 +75,6 @@ namespace Jsm33t.API.Controllers.Dedicated
                         statusCode = StatusCodes.Status200OK;
                         BlogDetails.Authors = await _BlogRepo.GetBlogAuthorsByBlogId(BlogDetails.Id);
                         message = "Retrieved";
-                   
                 }
                 else
                 {
@@ -103,6 +102,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                 Blog blog;
 
                 blog = await _BlogRepo.GetBlogDetailsBySlug(slug);
+
                 if (blog != null)
                 {
                     message = "retrieved";
@@ -163,12 +163,9 @@ namespace Jsm33t.API.Controllers.Dedicated
                 List<string> hints = [];
                 DbResult result = default;
 
+                int? userId = await _httpService.GetUserId();
 
-                var userClaims = User.Claims;
-
-                var userId =  userClaims.FirstOrDefault(c => c.Type == "id")?.Value;
-
-                result = await _BlogRepo.AddBlogLike(likeRequest.Slug, int.Parse(userId));
+                result = await _BlogRepo.AddBlogLike(likeRequest.Slug,userId ?? 0);
 
                 if (result == DbResult.Success)
                 {
@@ -200,7 +197,13 @@ namespace Jsm33t.API.Controllers.Dedicated
                     isLiked = await _BlogRepo.GetBlogLikeStatus(slug, UserId);
                 }
 
-                return (statusCode, isLiked, message, hints);
+                var likeData = new
+                {
+                    IsLiked = isLiked,
+                    likesCount = await _BlogRepo.GetBlogLikesCount(slug)
+                };
+
+                return (statusCode, likeData, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
         #endregion

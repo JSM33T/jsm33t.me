@@ -3,5 +3,7 @@
     public interface IHttpService
     {
         public Task<string> GetFileContentAsync(string fileUrl);
+
+        public Task<int?> GetUserId();
     }
 }
