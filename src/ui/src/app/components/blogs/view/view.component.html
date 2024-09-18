@@ -33,7 +33,7 @@
 
 						<button [ngClass]="isLiked ? 'btn-danger btn rounded-pill py-2 mx-2' : 'btn-outline-primary btn rounded-pill py-2 mx-2'" (click)="togglelike()">
 							<i [class]="{ 'ai-heart-filled': isLiked, 'ai-heart': !isLiked }"></i>
-							<span class="px-1">n</span>
+							<span class="px-1">{{ likesCount }}</span>
 						</button>
 						<button type="button" class="btn btn-outline-primary rounded-pill py-2">
 							<span class="dan"><i class="ai-share"></i></span>

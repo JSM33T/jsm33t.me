@@ -8,14 +8,13 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import initAOS, { cleanAOS, refreshAOS } from '../../../library/invokers/animate-on-scroll';
-import { AddBlogPropDirective } from '../../../blog-dom.directive';
 
 @Component({
 	selector: 'app-view',
 	standalone: true,
-	imports: [NgIf, NgFor, RouterModule, AddBlogPropDirective, NgClass],
+	imports: [NgIf, NgFor, RouterModule, NgClass],
 	templateUrl: './view.component.html',
-	styleUrls: ['./view.component.css'], // Corrected to styleUrls
+	styleUrls: ['./view.component.css'],
 })
 export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 	slug: string = '';
@@ -28,6 +27,7 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 	isLoading = true;
 	content: SafeHtml = '';
 	isLiked: boolean = false;
+	likesCount: number = 0;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -136,7 +136,8 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 			next: async (response) => {
 				if (response.data) {
 					console.log(response.data);
-					this.isLiked = response.data;
+					this.isLiked = response.data.isLiked;
+					this.likesCount = response.data.likesCount;
 				} else {
 					this.isLiked = false;
 				}
