@@ -37,6 +37,10 @@ export const routes: Route[] = [
 		loadComponent: () => import('./components/account/account.component').then((m) => m.AccountComponent),
 		loadChildren: () => import('./components/account/account.routes').then((m) => m.ACCOUNT_ROUTES),
 	},
+	{
+		path: '404',
+		loadComponent: () => import('./components/shared/not-found/not-found.component').then((m) => m.NotFoundComponent),
+	},
 
-	{ path: '**', redirectTo: '/' },
+	{ path: '**', redirectTo: '404' },
 ];
