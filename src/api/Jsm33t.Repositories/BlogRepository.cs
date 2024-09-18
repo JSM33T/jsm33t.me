@@ -107,7 +107,7 @@ namespace Jsm33t.Repositories
             return authors;
         }
 
-        public async Task<DbResult> AddBlogLike(string Slug,int UserId)
+        public async Task<DbResult> AddBlogLike(string Slug, int UserId)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@Slug", Slug, DbType.String, ParameterDirection.Input);
@@ -132,26 +132,30 @@ namespace Jsm33t.Repositories
             var result = parameters.Get<DbResult>("@Result");
 
             return result == DbResult.Success;
-            
+
         }
 
-        public async Task<int> GetBlogLikesCount(string Slug) {
+        // public async Task<int> GetBlogLikesCount(string Slug) {
+        //     using IDbConnection dbConnection = new SqlConnection(_conStr);
+        //     var query = $"SELECT COUNT(*) as LikeCount FROM tblBlogLikes L, tblBlogs B WHERE B.Slug = '{Slug}' and L.BlogId = B.Id";
+
+        //     int likeCount = await dbConnection.ExecuteScalarAsync<int>(query, new { Slug = Slug });
+
+        //     return likeCount;
+        // }
+
+        public async Task<int> GetBlogLikesCount(string Slug)
+        {
             using IDbConnection dbConnection = new SqlConnection(_conStr);
-            var query = $"SELECT COUNT(*) as LikeCount FROM tblBlogLikes L, tblBlogs B WHERE B.Slug = '{Slug}' and L.BlogId = B.Id";
 
-            int likeCount = await dbConnection.ExecuteScalarAsync<int>(query, new { Slug = Slug });
+            var parameters = new DynamicParameters();
+            parameters.Add("@Slug", Slug);
 
-            //if (!= null)
-            //{
-            //    Blog.Authors = await GetBlogAuthorsByBlogId(Blog.Id);
-            //}
-            //else
-            //{
-            //    Blog.Authors = [];
-            //}
+            int likeCount = await dbConnection.QueryFirstOrDefaultAsync<int>("sproc_GetLikeCountBySlug", parameters, commandType: CommandType.StoredProcedure);
 
             return likeCount;
         }
+
 
     }
 }
