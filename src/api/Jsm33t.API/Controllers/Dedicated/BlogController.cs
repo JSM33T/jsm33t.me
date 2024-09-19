@@ -69,12 +69,11 @@ namespace Jsm33t.API.Controllers.Dedicated
                     BlogDetails.Name = Blog.BlogName;
                     BlogDetails.DateAdded = Blog.DateAdded;
                     BlogDetails.Id = Blog.Id;
-
-                    
-                        BlogDetails.Content = await _httpService.GetFileContentAsync(filePath);
-                        statusCode = StatusCodes.Status200OK;
-                        BlogDetails.Authors = await _BlogRepo.GetBlogAuthorsByBlogId(BlogDetails.Id);
-                        message = "Retrieved";
+                    BlogDetails.Tags = Blog.Tags;
+                    BlogDetails.Content = await _httpService.GetFileContentAsync(filePath);
+                    statusCode = StatusCodes.Status200OK;
+                    BlogDetails.Authors = await _BlogRepo.GetBlogAuthorsByBlogId(BlogDetails.Id);
+                    message = "Retrieved";
                 }
                 else
                 {

@@ -9,4 +9,8 @@ export const STUDIO_ROUTES: Routes = [
 		path: 'the-coffeeroom-bootleg',
 		loadComponent: () => import('./album/coffeeroomalbum/coffeeroomalbum.component').then((m) => m.CoffeeroomalbumComponent),
 	},
+    {
+		path: 'singularity',
+		loadComponent: () => import('./single/singularity/singularity.component').then((m) => m.SingularityComponent),
+	},
 ];

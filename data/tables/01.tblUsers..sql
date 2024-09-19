@@ -13,6 +13,8 @@ CREATE TABLE [dbo].[tblUsers]
 	Username        NVARCHAR(128)		NOT NULL,
 
 	Email			NVARCHAR(256)		NOT NULL,
+    
+    Bio			    NVARCHAR(512)		NOT NULL DEFAULT('Hey there'),
 
 	Avatar			NVARCHAR(256)		NOT NULL DEFAULT 'default',
 

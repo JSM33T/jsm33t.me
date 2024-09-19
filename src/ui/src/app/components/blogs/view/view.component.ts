@@ -7,7 +7,7 @@ import { ResponseHandlerService } from '../../../library/helpers/response-handle
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import initAOS, { cleanAOS, refreshAOS } from '../../../library/invokers/animate-on-scroll';
+import initAOS, { cleanAOS } from '../../../library/invokers/animate-on-scroll';
 import { cleanLightGallery, initializeLightGallery } from '../../../library/invokers/lightgallery';
 
 @Component({
@@ -22,6 +22,7 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 	year: string = '';
 	title: string = '';
 	authors: any = [];
+	tags: any = [];
 	dateAdded: string = '';
 	imagesArray: any = [];
 	blogTitle: string = '';
@@ -30,14 +31,7 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 	isLiked: boolean = false;
 	likesCount: number = 0;
 
-	constructor(
-		private route: ActivatedRoute,
-		private httpService: HttpService,
-		private responseHandler: ResponseHandlerService,
-		private sanitizer: DomSanitizer,
-		private el: ElementRef,
-		private renderer: Renderer2,
-	) {}
+	constructor(private route: ActivatedRoute, private httpService: HttpService, private responseHandler: ResponseHandlerService, private sanitizer: DomSanitizer, private el: ElementRef, private renderer: Renderer2) {}
 
 	ngOnInit(): void {
 		this.slug = this.route.snapshot.paramMap.get('slug')!;
@@ -86,8 +80,10 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
 					const markdownContent = response.data.content;
 					if (markdownContent) {
+						console.log(response.data);
 						const htmlContent = await marked(markdownContent);
 						this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
+						this.tags = response.data.tags.split(',');
 						setTimeout(() => {
 							this.addClasses();
 							initializeLightGallery();
