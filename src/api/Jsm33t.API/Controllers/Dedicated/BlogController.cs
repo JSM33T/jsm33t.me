@@ -10,7 +10,6 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Security.Claims;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Jsm33t.API.Controllers.Dedicated
