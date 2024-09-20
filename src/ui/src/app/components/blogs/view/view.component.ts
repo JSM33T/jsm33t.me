@@ -83,7 +83,7 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 						console.log(response.data);
 						const htmlContent = await marked(markdownContent);
 						this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
-						this.tags = response.data.tags.split(',');
+						this.tags = response.data.tags ? String(response.data.tags).split(',') : [];
 						setTimeout(() => {
                             console.log("adding classes");
 							this.addClasses();
