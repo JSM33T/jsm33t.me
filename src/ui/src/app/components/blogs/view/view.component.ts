@@ -85,9 +85,11 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 						this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
 						this.tags = response.data.tags.split(',');
 						setTimeout(() => {
+                            console.log("adding classes");
 							this.addClasses();
+                            console.log("initializing  lightgallery");
 							initializeLightGallery();
-						}, 0);
+						}, 10);
 					} else {
 						this.content = 'error fetching the blog...';
 					}
