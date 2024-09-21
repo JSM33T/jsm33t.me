@@ -93,6 +93,20 @@ namespace Jsm33t.Repositories
             return Blog;
         }
 
+        public async Task<int?> GetBlogIdBySlug(string Slug)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_conStr);
+            var query = $"SELECT Id FROM tblBlogs WHERE Slug = '{Slug}'";
+
+            var Id = await dbConnection.QuerySingleOrDefaultAsync<int>(query, new { Slug = Slug });
+
+            if (Id != null)
+            {
+                return Convert.ToInt32(Id);
+            }
+            else return null;
+        }
+
         public async Task<IEnumerable<BlogAuthor>> GetBlogAuthorsByBlogId(int BlogId)
         {
             using IDbConnection dbConnection = new SqlConnection(_conStr);
@@ -155,6 +169,21 @@ namespace Jsm33t.Repositories
 
             return likeCount;
         }
+
+
+        //public async Task<DbResult> AddBlogComment(Blog_AddComment commentRequest)
+        //{
+        //    using IDbConnection dbConnection = new SqlConnection(_conStr);
+
+        //    var parameters = new DynamicParameters();
+        //    parameters.Add("@Comment", commentRequest.CommentText);
+        //    parameters.Add("@UserId", commentRequest.CommentText);
+        //    parameters.Add("@BlogId", commentRequest.CommentText);
+
+        //    int likeCount = await dbConnection.QueryFirstOrDefaultAsync<int>("sproc_GetLikeCountBySlug", parameters, commandType: CommandType.StoredProcedure);
+
+        //    return likeCount;
+        //}
 
 
     }

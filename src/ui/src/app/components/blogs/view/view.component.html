@@ -31,11 +31,11 @@
 					<div class="d-flex" *ngIf="!isLoading; else likePlaceholder">
 						<!-- <button type="button" class="btn btn-outline-danger rounded-pill py-2 mx-2" (click)="togglelike()"> -->
 
-						<button [ngClass]="isLiked ? 'btn-danger btn rounded-pill py-2 mx-2' : 'btn-outline-primary btn rounded-pill py-2 mx-2'" (click)="togglelike()">
+						<button type="button" [ngClass]="isLiked ? 'btn-danger btn rounded-pill py-2 mx-2' : 'btn-outline-primary btn rounded-pill py-2 mx-2'" (click)="togglelike()">
 							<i [class]="{ 'ai-heart-filled': isLiked, 'ai-heart': !isLiked }"></i>
 							<span class="px-1">{{ likesCount }}</span>
 						</button>
-						<button type="button" class="btn btn-outline-primary rounded-pill py-2">
+						<button title="share button" type="button" class="btn btn-outline-primary rounded-pill py-2">
 							<span class="dan"><i class="ai-share"></i></span>
 						</button>
 					</div>
@@ -83,11 +83,11 @@
 					<h4 class="pt-3 pt-lg-1 mb-4">Tags:</h4>
 					<div class="d-flex flex-wrap mt-n3 ms-n3 mb-lg-5 mb-4 pb-3 pb-lg-0">
 						<div *ngFor="let tag of tags">
-                            <a class="nav-link fs-sm py-1 px-0 me-3" routerLink="/blogs" [queryParams]="{ tag: tag }">
-                                <span class="text-primary">#</span>
-                                {{ tag }}
-                            </a>
-                        </div>
+							<a class="nav-link fs-sm py-1 px-0 me-3" routerLink="/blogs" [queryParams]="{ tag: tag }">
+								<span class="text-primary">#</span>
+								{{ tag }}
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

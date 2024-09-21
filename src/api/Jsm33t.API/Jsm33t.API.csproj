@@ -8,17 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="wwwroot\content\2022\**" />
-	  <Compile Remove="wwwroot\content\2024\**" />
 	  <Compile Remove="wwwroot\studio\**" />
-	  <Content Remove="wwwroot\content\2022\**" />
-	  <Content Remove="wwwroot\content\2024\**" />
 	  <Content Remove="wwwroot\studio\**" />
-	  <EmbeddedResource Remove="wwwroot\content\2022\**" />
-	  <EmbeddedResource Remove="wwwroot\content\2024\**" />
 	  <EmbeddedResource Remove="wwwroot\studio\**" />
-	  <None Remove="wwwroot\content\2022\**" />
-	  <None Remove="wwwroot\content\2024\**" />
 	  <None Remove="wwwroot\studio\**" />
 	</ItemGroup>
 
