@@ -5,7 +5,7 @@ import { HttpService } from '../../../services/http.service';
 import { ResponseHandlerService } from '../../../library/helpers/response-handler';
 import { APIResponse } from '../../../library/interfaces/api-response.model';
 import { Observable } from 'rxjs';
-import togglePasswordVisibility from '../../../library/helpers/visibilityToggle';
+
 
 @Component({
 	selector: 'app-signup',
