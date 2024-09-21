@@ -35,7 +35,8 @@ export class NavbarComponent implements OnInit {
 
 	logout() {
 		localStorage.removeItem('token');
-		this.reloadComponent(true, '/');
+        window.location.reload();
+		//this.reloadComponent(true, '/');
 	}
 
 	isLoggedIn: boolean = false;
