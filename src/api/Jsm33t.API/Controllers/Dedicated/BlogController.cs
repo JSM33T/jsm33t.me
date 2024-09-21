@@ -205,5 +205,34 @@ namespace Jsm33t.API.Controllers.Dedicated
             }, MethodBase.GetCurrentMethod().Name);
         }
         #endregion
+
+
+
+        [HttpPost("addcomment")]
+        [Authorize]
+        #region Get categories on side pane
+        public async Task<IActionResult> AddBlogComment(BlogLikeDTO likeRequest)
+        {
+            return await ExecuteActionAsync(async () =>
+            {
+                int statusCode = StatusCodes.Status400BadRequest;
+                string message = "Bad request";
+                List<string> hints = [];
+                DbResult result = default;
+
+                int? userId = await _httpService.GetUserId();
+
+                result = await _BlogRepo.AddBlogLike(likeRequest.Slug, userId ?? 0);
+
+                if (result == DbResult.Success)
+                {
+                    message = "Success";
+                    statusCode = StatusCodes.Status200OK;
+                }
+
+                return (statusCode, 0, message, hints);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
+        #endregion
     }
 }

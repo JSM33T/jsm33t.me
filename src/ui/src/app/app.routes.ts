@@ -5,6 +5,10 @@ export const routes: Route[] = [
 		path: '',
 		loadComponent: () => import('./components/home/home.component').then((m) => m.HomeComponent),
 	},
+    {
+		path: 'test',
+		loadComponent: () => import('./components/test/test.component').then((m) => m.TestComponent),
+	},
 	{
 		path: 'about',
 		loadComponent: () => import('./components/about/about.component').then((m) => m.AboutComponent),

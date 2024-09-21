@@ -21,7 +21,7 @@ import initAOS, { cleanAOS } from '../../library/invokers/animate-on-scroll';
 export class BlogComponent implements OnInit, OnDestroy {
 	isLoading = false;
 	blogs: any[] = [];
-	cover: string = environment.apiUrl;
+	cover: string = environment.cdnUrl;
 	currentCategory: string | null = null;
 	currentTag: string | null = null;
 	currentYear: number | null = null;
