@@ -35,7 +35,7 @@
 							<i [class]="{ 'ai-heart-filled': isLiked, 'ai-heart': !isLiked }"></i>
 							<span class="px-1">{{ likesCount }}</span>
 						</button>
-						<button title="share button" type="button" class="btn btn-outline-primary rounded-pill py-2">
+						<button title="share button" type="button" (click)="toggleSidebar()" class="btn btn-outline-primary rounded-pill py-2">
 							<span class="dan"><i class="ai-share"></i></span>
 						</button>
 					</div>
@@ -83,7 +83,7 @@
 					<h4 class="pt-3 pt-lg-1 mb-4">Tags:</h4>
 					<div class="d-flex flex-wrap mt-n3 ms-n3 mb-lg-5 mb-4 pb-3 pb-lg-0">
 						<div *ngFor="let tag of tags">
-							<a class="nav-link fs-sm py-1 px-0 me-3" routerLink="/blogs" [queryParams]="{ tag: tag }">
+							<a class="nav-link fs-sm py-1 px-0 me-3" (click)="toggleSidebar()" routerLink="/blogs" [queryParams]="{ tag: tag }">
 								<span class="text-primary">#</span>
 								{{ tag }}
 							</a>

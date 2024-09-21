@@ -27,6 +27,11 @@ export function initializeLightGallery() {
 				plugins: plugins,
 				licenseKey: 'D4194FDD-48924833-A54AECA3-D6F8E646',
 				download: false,
+                pager:true,
+
+                showCloseIcon:true,
+                closable:true,
+                closeOnTap : true,
 				autoplayVideoOnSlide: true,
 				zoomFromOrigin: false,
 				youtubePlayerParams: {
@@ -41,15 +46,12 @@ export function initializeLightGallery() {
 				},
 			});
 
-			// Store the instance for potential future deinitialization
 			galleryInstances.push(instance);
-			/* eslint-enable no-undef */
 		}
 	}
 }
 
 export function cleanLightGallery() {
-	// Deinitialize existing gallery instances
 	//@ts-ignore
 	galleryInstances.forEach((instance) => {
 		instance.destroy();

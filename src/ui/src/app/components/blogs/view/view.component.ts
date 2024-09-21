@@ -9,6 +9,7 @@ import { marked } from 'marked';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import initAOS, { cleanAOS } from '../../../library/invokers/animate-on-scroll';
 import { cleanLightGallery, initializeLightGallery } from '../../../library/invokers/lightgallery';
+declare var bootstrap: any;
 
 @Component({
 	selector: 'app-view',
@@ -33,6 +34,8 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	constructor(private route: ActivatedRoute, private httpService: HttpService, private responseHandler: ResponseHandlerService, private sanitizer: DomSanitizer, private el: ElementRef, private renderer: Renderer2) {}
 
+    sidebar: any;
+    
 	ngOnInit(): void {
 		this.slug = this.route.snapshot.paramMap.get('slug')!;
 		this.year = this.route.snapshot.paramMap.get('year')!;
@@ -41,6 +44,7 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 	ngAfterViewInit(): void {
 		initAOS();
+        this.sidebar = document.getElementById('sidebar');
 	}
 	ngOnDestroy(): void {
 		cleanLightGallery();
@@ -85,9 +89,9 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 						this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
 						this.tags = response.data.tags ? String(response.data.tags).split(',') : [];
 						setTimeout(() => {
-                            console.log("adding classes");
+							console.log('adding classes');
 							this.addClasses();
-                            console.log("initializing  lightgallery");
+							console.log('initializing  lightgallery');
 							initializeLightGallery();
 						}, 10);
 					} else {
@@ -150,5 +154,15 @@ export class ViewComponent implements OnInit, AfterViewInit, OnDestroy {
 				this.isLiked = false;
 			},
 		});
+	}
+
+	toggleSidebar(): void {
+		const bsOffcanvas = new bootstrap.Offcanvas(this.sidebar);
+		if (this.sidebar.classList.contains('show')) {
+			bsOffcanvas.hide();
+		}
+        //  else {
+		// 	bsOffcanvas.show();
+		// }
 	}
 }
