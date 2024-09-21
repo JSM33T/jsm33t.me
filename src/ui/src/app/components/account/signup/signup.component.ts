@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
 import { ResponseHandlerService } from '../../../library/helpers/response-handler';
 import { APIResponse } from '../../../library/interfaces/api-response.model';
 import { Observable } from 'rxjs';
+import togglePasswordVisibility from '../../../library/helpers/visibilityToggle';
 
 @Component({
 	selector: 'app-signup',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
 	templateUrl: './signup.component.html',
 	styleUrl: './signup.component.css',
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
 	isLoading: boolean = false;
 	sigupForm!: FormGroup;
 
@@ -32,6 +33,8 @@ export class SignupComponent {
 			confirmPassword: new FormControl(''),
 		});
 	}
+    ngOnInit(): void {
+    }
 
 	onSubmit(): void {
 		this.isLoading = true;
@@ -56,5 +59,9 @@ export class SignupComponent {
 				this.isLoading = false;
 			},
 		});
+	}
+
+    togglePasswordVisibility(input: HTMLInputElement) {
+		input.type = input.type === 'password' ? 'text' : 'password';
 	}
 }

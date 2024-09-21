@@ -29,9 +29,9 @@
 			<div class="position-relative">
 				<i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
 				<div class="password-toggle">
-					<input class="form-control form-control-lg ps-5" formControlName="password" type="password" placeholder="Password" required />
+					<input class="form-control form-control-lg ps-5" formControlName="password" type="password" placeholder="Password" required #passwordInput />
 					<label class="password-toggle-btn" aria-label="Show/hide password">
-						<input class="password-toggle-check" type="checkbox" />
+						<input class="password-toggle-check" type="checkbox"  (click)="togglePasswordVisibility(passwordInput)" />
 						<span class="password-toggle-indicator"></span>
 					</label>
 				</div>

@@ -5,7 +5,6 @@ import { HttpService } from '../../../services/http.service';
 import { APIResponse } from '../../../library/interfaces/api-response.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import acToaster from '../../../library/modals/toast.modal';
 
 @Component({
 	selector: 'app-login',
@@ -15,17 +14,12 @@ import acToaster from '../../../library/modals/toast.modal';
 	styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
+	
 	isLoading: boolean = false;
 	loginForm!: FormGroup;
 	paramUsername: string = '';
 
-	constructor(
-		private httpService: HttpService,
-		private fb: FormBuilder,
-		private router: Router,
-		private responseHandler: ResponseHandlerService,
-		private route: ActivatedRoute,
-	) {
+	constructor(private httpService: HttpService, private fb: FormBuilder, private router: Router, private responseHandler: ResponseHandlerService, private route: ActivatedRoute) {
 		this.loginForm = this.fb.group({
 			username: new FormControl(''),
 			password: new FormControl(''),
@@ -59,5 +53,9 @@ export class LoginComponent implements OnInit {
 				this.isLoading = false;
 			},
 		});
+	}
+
+    togglePasswordVisibility(input: HTMLInputElement) {
+		input.type = input.type === 'password' ? 'text' : 'password';
 	}
 }
