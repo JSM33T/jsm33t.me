@@ -1,4 +1,5 @@
-﻿using Jsm33t.Entities.DTO;
+﻿using Google.Apis.Auth;
+using Jsm33t.Entities.DTO;
 using Jsm33t.Entities.Enums;
 using Jsm33t.Entities.Shared;
 using Jsm33t.Repositories;
@@ -11,15 +12,78 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
+using static Google.Apis.Auth.GoogleJsonWebSignature;
+
 
 namespace Jsm33t.API.Controllers.Dedicated
 {
+    public class GoogleLoginRequest
+    {
+        public string IdToken { get; set; }
+    }
+
     [Route("api/account")]
     [ApiController]
     public class AccountController(IMailService mailService, IOptionsMonitor<Jsm33tConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IUserRepository userRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
     {
         private readonly IUserRepository _userRepo = userRepository;
         private readonly IMailService _mailService = mailService;
+
+
+        [HttpPost("google-login")]
+        public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginRequest request)
+        {
+            return await ExecuteActionAsync(async () =>
+            {
+                int statCode = default;
+                string message = string.Empty;
+                List<string> hints = [];
+                User_ClaimsResponse userClaims;
+
+                var settings = new GoogleJsonWebSignature.ValidationSettings()
+                {
+                    Audience = new[] { config.CurrentValue.logins.GoogleClientId }
+                };
+
+                 Payload payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken, settings);
+
+                await _userRepo.GoogleLogin(payload);
+
+                userClaims = await _userRepo.GetGoogleLoginDetails(payload.Email);
+
+                statCode = StatusCodes.Status200OK;
+                var claims = new[]
+                   {
+                            new Claim(ClaimTypes.Email, userClaims.Email),
+                            new Claim(ClaimTypes.NameIdentifier,userClaims.Username),
+                            new Claim(ClaimTypes.Role, userClaims.Role),
+                            new Claim("id", userClaims.Id.ToString()),
+                            new Claim("username", userClaims.FirstName),
+                            new Claim("role", userClaims.Role),
+                            new Claim("firstname", userClaims.FirstName),
+                            new Claim("lastname", userClaims.LastName),
+                            new Claim("avatar", userClaims.Avatar),
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                        };
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.CurrentValue.JwtSettings.IssuerSigningKey));
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                var token = new JwtSecurityToken(
+                    issuer: _config.CurrentValue.JwtSettings.ValidIssuer,
+                    audience: _config.CurrentValue.JwtSettings.ValidAudience,
+                    claims: claims,
+                    expires: DateTime.Now.AddDays(7),
+                    signingCredentials: creds);
+
+                userClaims.Token = new JwtSecurityTokenHandler().WriteToken(token);
+
+                statCode = StatusCodes.Status200OK;
+                message = "Logged In..";
+
+                return (statCode, userClaims, message, hints);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
 
         [HttpPost("login")]
         [AllowAnonymous]
@@ -103,14 +167,14 @@ namespace Jsm33t.API.Controllers.Dedicated
         {
             return await ExecuteActionAsync(async () =>
             {
-                int statCode = default; 
-                string message = string.Empty;  
+                int statCode = default;
+                string message = string.Empty;
                 List<string> hints = [];
                 User_ClaimsResponse userClaims;
                 DbResult result;
                 string otp = string.Empty;
 
-                (result, userClaims,otp) = await _userRepo.UserSignup(request);
+                (result, userClaims, otp) = await _userRepo.UserSignup(request);
 
                 if (result == DbResult.Conflict)
                 {
@@ -160,7 +224,7 @@ namespace Jsm33t.API.Controllers.Dedicated
 
                 result = await _userRepo.UserVerify(request);
 
-              
+
                 if (result == DbResult.Success)
                 {
                     message = "Account verified";

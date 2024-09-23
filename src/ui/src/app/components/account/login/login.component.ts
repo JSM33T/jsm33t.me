@@ -5,21 +5,31 @@ import { HttpService } from '../../../services/http.service';
 import { APIResponse } from '../../../library/interfaces/api-response.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
 	selector: 'app-login',
 	standalone: true,
-	imports: [ReactiveFormsModule, RouterModule],
+	imports: [ReactiveFormsModule, RouterModule, GoogleSigninButtonModule],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-	
 	isLoading: boolean = false;
 	loginForm!: FormGroup;
 	paramUsername: string = '';
 
-	constructor(private httpService: HttpService, private fb: FormBuilder, private router: Router, private responseHandler: ResponseHandlerService, private route: ActivatedRoute) {
+	constructor(
+		private httpService: HttpService,
+		private fb: FormBuilder,
+		private router: Router,
+		private responseHandler: ResponseHandlerService,
+		private route: ActivatedRoute,
+		private authService: AuthService,
+		private socialAuthService: SocialAuthService
+	) {
 		this.loginForm = this.fb.group({
 			username: new FormControl(''),
 			password: new FormControl(''),
@@ -32,6 +42,30 @@ export class LoginComponent implements OnInit {
 				username: this.paramUsername,
 			});
 		}
+
+		this.socialAuthService.authState.subscribe((user: SocialUser) => {
+			if (user) {
+				console.log('User logged in:', user);
+				this.handleLogin(user.idToken);
+			}
+		});
+	}
+
+	signInWithGoogle(): void {
+		this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+	}
+
+	handleLogin(idToken: string) {
+		this.authService.googleLogin(idToken).subscribe({
+			next: (res) => {
+				console.log('Login successful', res);
+				// Handle successful login (e.g., store token, redirect)
+			},
+			error: (error) => {
+				console.error('Login failed', error);
+				// Handle login error
+			},
+		});
 	}
 
 	onSubmit(): void {
@@ -55,7 +89,7 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-    togglePasswordVisibility(input: HTMLInputElement) {
+	togglePasswordVisibility(input: HTMLInputElement) {
 		input.type = input.type === 'password' ? 'text' : 'password';
 	}
 }

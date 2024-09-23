@@ -8,8 +8,12 @@
         public SmtpSettings SmtpSettings { get; set; }
         public TelegramBotSettings TelegramBot { get; set; }
         public Paths Paths { get; set; }
+        public Logins logins {get;set;}
     }
 
+    public class Logins {
+        public string GoogleClientId { get; set; }
+    }
     public class CryptographySettings
     {
         public string Key { get; set; }

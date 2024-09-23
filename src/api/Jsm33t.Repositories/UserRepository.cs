@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Jsm33t.Library;
+using static Google.Apis.Auth.GoogleJsonWebSignature;
 
 namespace Jsm33t.Repositories
 {
@@ -30,6 +31,31 @@ namespace Jsm33t.Repositories
 
             parameters.Add("@Username", request.Username, DbType.String, ParameterDirection.Input);
             parameters.Add("@Password", request.Password , DbType.String, ParameterDirection.Input);
+
+            using var results = await _dbConnection.QueryMultipleAsync("sproc_UserLogin", parameters, commandType: CommandType.StoredProcedure);
+            var user = results.Read<User_ClaimsResponse>().SingleOrDefault() ?? null;
+
+            return user;
+        }
+
+        public async Task<User_ClaimsResponse> GoogleLogin(Payload payload)
+        {
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@Username", payload.GivenName, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Password", payload.FamilyName, DbType.String, ParameterDirection.Input);
+
+            using var results = await _dbConnection.QueryMultipleAsync("sproc_UserLogin", parameters, commandType: CommandType.StoredProcedure);
+            var user = results.Read<User_ClaimsResponse>().SingleOrDefault() ?? null;
+
+            return user;
+        }
+
+        public async Task<User_ClaimsResponse> GetGoogleLoginDetails(string Email)
+        {
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@Username", Email, DbType.String, ParameterDirection.Input);
 
             using var results = await _dbConnection.QueryMultipleAsync("sproc_UserLogin", parameters, commandType: CommandType.StoredProcedure);
             var user = results.Read<User_ClaimsResponse>().SingleOrDefault() ?? null;
