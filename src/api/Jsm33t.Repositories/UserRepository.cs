@@ -42,7 +42,7 @@ namespace Jsm33t.Repositories
         {
             var parameters = new DynamicParameters();
             parameters.Add("@Firstname", request.GivenName, DbType.String, ParameterDirection.Input);
-            parameters.Add("@Lastname", request.FamilyName, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Lastname", request.FamilyName ?? string.Empty, DbType.String, ParameterDirection.Input);
             parameters.Add("@Username", request.Email, DbType.String, ParameterDirection.Input);
             parameters.Add("@Email", request.Email, DbType.String, ParameterDirection.Input);
             parameters.Add("@GoogleId", request.Subject, DbType.String, ParameterDirection.Input);
