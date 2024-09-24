@@ -4,6 +4,10 @@ import { AudioPlayerComponent, audioRequestService } from '../audio-player/audio
 // import { disableParallax, enableParallax, initParallax } from '../../../library/invokers/parallax';
 import { DefaultScrollbar, DisableScrollbar, SkinnyScrollbar } from '../../../library/helpers/scrollbarhelper';
 import { ScrollbarState } from './ScrollbarState';
+import openExistingModal from '../../../library/modals/ugly_google_btn';
+import { routes } from '../../../app.routes';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-side-panel',
@@ -13,10 +17,13 @@ import { ScrollbarState } from './ScrollbarState';
 	styleUrl: './side-panel.component.css',
 })
 export class SidePanelComponent implements OnInit {
+	constructor(private router: Router, private location: Location) {}
+
 	ScrollbarState = ScrollbarState;
 	currentScrollState: ScrollbarState = ScrollbarState.Disable;
 	isAnimationEnabled: boolean = true;
 	scrollState: string = 'disable';
+	currentroute: string = '/';
 
 	ngOnInit(): void {
 		//audioRequestService.requestAudioPlay("https://cdn.jsm33t.me/webassets/floatinggarden.mp3");
@@ -96,5 +103,11 @@ export class SidePanelComponent implements OnInit {
 		SkinnyScrollbar();
 		this.currentScrollState = ScrollbarState.Skinny;
 		localStorage.setItem('scrollbar', 'skinny');
+	}
+
+	shareModal() {
+		this.currentroute = this.location.prepareExternalUrl(this.location.path());
+		console.log(this.currentroute);
+		//openExistingModal("shareModal");
 	}
 }

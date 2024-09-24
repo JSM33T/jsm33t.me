@@ -14,6 +14,7 @@ import { NgIf } from '@angular/common';
 import { filter } from 'rxjs';
 import { MetaTagManagerService } from './services/metaservice.service';
 import acToaster from './library/modals/toast.modal';
+import { closeAllModals } from './library/modals/ugly_google_btn';
 @Component({
 	selector: 'app-root',
 	standalone: true,
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
 				top: 0,
 				behavior: 'smooth',
 			});
+            closeAllModals();
 			this.shouldRenderNavbar();
 			this.metaTagManagerService.initializeMetaTags();
 		});

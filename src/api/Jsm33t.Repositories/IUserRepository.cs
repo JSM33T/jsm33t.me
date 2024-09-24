@@ -11,6 +11,6 @@ namespace Jsm33t.Repositories
         public Task<(DbResult, User_ClaimsResponse,string)> UserSignup(User_SignupRequest request);
         public Task<DbResult> UserAccountRecovery(string username);
         public Task<User_ClaimsResponse> GetGoogleLoginDetails(string Email);
-        public Task<User_ClaimsResponse> GoogleLogin(Payload payload);
+        public Task<(DbResult, User_ClaimsResponse)> GoogleLogin(Payload request);
     }
 }

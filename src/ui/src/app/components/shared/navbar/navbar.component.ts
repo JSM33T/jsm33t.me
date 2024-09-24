@@ -10,6 +10,7 @@ interface UserClaims {
 	username: string;
 	pfp: string;
 	firstname: string;
+    mode : string;
 }
 
 @Component({
@@ -29,8 +30,9 @@ export class NavbarComponent implements OnInit {
 
 	user: UserClaims = {
 		username: '',
-		pfp: '',
+		pfp: environment.cdnUrl + '/webassets/images/avatars/default.png',
 		firstname: '',
+        mode : ''
 	};
 
 	logout() {
@@ -47,9 +49,17 @@ export class NavbarComponent implements OnInit {
 		const token = localStorage.getItem('token'); // Retrieve your JWT token from local storage
 		if (token) {
 			const decodedToken = jwtDecode(token) as any;
-			console.log(decodedToken);
-			this.user.username = decodedToken.username; // Extract username from the decoded token
-			this.user.pfp = decodedToken.profilePicture; // Extract profile picture from the decoded token
+			this.user.username = decodedToken.username;
+
+            console.log(this.user.mode)
+            if(decodedToken.mode == "google")
+            {
+                this.user.pfp = decodedToken.avatar;
+            }
+            else
+            {
+                this.user.pfp = environment.cdnUrl + '/webassets/images/avatars/' + decodedToken.avatar + '.png'
+            }
 			this.isLoggedIn = true;
 		} else {
 			this.isLoggedIn = false;
@@ -74,4 +84,10 @@ export class NavbarComponent implements OnInit {
 			});
 		});
 	}
+
+
+    redirectToLogin() {
+        const returnUrl = this.router.url; // Capture current route
+        this.router.navigate(['/account/login'], { queryParams: { returnUrl } }); // Pass it as a param
+     }
 }

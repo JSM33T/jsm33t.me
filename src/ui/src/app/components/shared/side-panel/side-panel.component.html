@@ -17,6 +17,11 @@
 				</div>
 			</div>
 		</div>
+        <button class="btn btn-primary w-100" type="button" data-bs-toggle="modal" (click)="shareModal()"
+			data-bs-target="#shareModal">
+			<i class="ai-code-curly fs-lg me-2 ms-n1"></i>
+			Share
+		</button>
 		<div class="d-flex align-items-center mt-n2 mb-3 pt-4">
 			<i class="ai-maximize text-body-secondary fs-5 me-2"></i>
 			<h5 class="mb-0">Media player</h5>
@@ -45,7 +50,7 @@
 		<div class="card text-center card border-0 bg-secondary mb-2 wip">
 			<div class="card-header py-2">Font Fam</div>
 			<div class="card-body py-2">
-				<select class="form-select py-2" id="root-font-size">
+				<select title="fontSelection" class="form-select py-2" id="root-font-size">
 					<option value="consolas">Default</option>
 					<option value=".875rem">Other font</option>
 				</select>
@@ -103,3 +108,43 @@
 	<i class="ai-settings text-primary fs-base me-1 ms-n1"></i>
 	Panel
 </a>
+
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Share It</h4>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-4">
+                <p class="mb-3 fs-md">
+                    Copy link to clipboard and share the way you want or just use one of
+                    the following social share icons:
+                </p>
+                <div class="overflow-hidden pb-2">
+                    <button class="btn btn-outline-secondary btn-sm">
+                        <i class="ai ai-whatsapp"></i>&nbsp;Whatsapp
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm">
+                        <i class="ai ai-whatsapp"></i>&nbsp;Twitter
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm">
+                        <i class="ai ai-whatsapp"></i>&nbsp;Facebook
+                    </button>
+                </div>
+                <div class="bg-secondary overflow-hidden rounded-4">
+                    <pre class="text-wrap bg-transparent border-0 text-dark p-4" id="link-placeholder">{{currentroute}}</pre>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary w-100 w-sm-auto mb-3 mb-sm-0" type="button" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button class="btn btn-primary w-100 w-sm-auto ms-sm-3" type="button" id="copy-btn">
+                    <i class="ai-copy me-2 ms-n1"></i>
+                    Copy
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -47,9 +47,9 @@ namespace Jsm33t.API.Controllers.Dedicated
 
                  Payload payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken, settings);
 
-                await _userRepo.GoogleLogin(payload);
+                (DbResult res,userClaims) = await _userRepo.GoogleLogin(payload);
 
-                userClaims = await _userRepo.GetGoogleLoginDetails(payload.Email);
+                //userClaims = await _userRepo.GetGoogleLoginDetails(payload.Email);
 
                 statCode = StatusCodes.Status200OK;
                 var claims = new[]
@@ -63,6 +63,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                             new Claim("firstname", userClaims.FirstName),
                             new Claim("lastname", userClaims.LastName),
                             new Claim("avatar", userClaims.Avatar),
+                            new Claim("mode", "google"),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 
@@ -113,6 +114,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                             new Claim("firstname", userClaims.FirstName),
                             new Claim("lastname", userClaims.LastName),
                             new Claim("avatar", userClaims.Avatar),
+                            new Claim("mode", "email"),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 

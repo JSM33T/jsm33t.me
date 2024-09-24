@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { AuthService } from '../../../services/auth.service';
+import openExistingModal, { closeAllModals } from '../../../library/modals/ugly_google_btn';
 
 @Component({
 	selector: 'app-login',
@@ -57,9 +58,15 @@ export class LoginComponent implements OnInit {
 
 	handleLogin(idToken: string) {
 		this.authService.googleLogin(idToken).subscribe({
-			next: (res) => {
-				console.log('Login successful', res);
-				// Handle successful login (e.g., store token, redirect)
+			next: (response) => {
+				console.log('Login successful', response);
+				this.isLoading = false;
+				if (response.status == 200) {
+					console.log(response.data.token);
+					localStorage.setItem('token', response.data.token);
+					//this.router.navigate(['/']);
+                    this.onLoginSuccess();
+				}
 			},
 			error: (error) => {
 				console.error('Login failed', error);
@@ -74,12 +81,11 @@ export class LoginComponent implements OnInit {
 
 		this.responseHandler.handleResponse(response$, true).subscribe({
 			next: (response) => {
-				console.log(response);
 				this.isLoading = false;
 				if (response.status == 200) {
-					console.log(response.data.token);
 					localStorage.setItem('token', response.data.token);
-					this.router.navigate(['/']);
+					//this.router.navigate(['/']);
+                    this.onLoginSuccess();
 				}
 			},
 			error: (error) => {
@@ -92,4 +98,14 @@ export class LoginComponent implements OnInit {
 	togglePasswordVisibility(input: HTMLInputElement) {
 		input.type = input.type === 'password' ? 'text' : 'password';
 	}
+    
+    googleLoginButton(){
+        openExistingModal("googleBtn");
+    }
+
+    onLoginSuccess() {
+        closeAllModals();
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/defaultPage';
+        this.router.navigateByUrl(decodeURIComponent(returnUrl));  // Decode it just in case
+      }
 }

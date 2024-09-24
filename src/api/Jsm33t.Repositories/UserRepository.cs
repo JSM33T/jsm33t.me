@@ -38,17 +38,21 @@ namespace Jsm33t.Repositories
             return user;
         }
 
-        public async Task<User_ClaimsResponse> GoogleLogin(Payload payload)
+        public async Task<(DbResult, User_ClaimsResponse)> GoogleLogin(Payload request)
         {
             var parameters = new DynamicParameters();
+            parameters.Add("@Firstname", request.GivenName, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Lastname", request.FamilyName, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Username", request.Email, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Email", request.Email, DbType.String, ParameterDirection.Input);
+            parameters.Add("@GoogleId", request.Subject, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Avatar", request.Picture, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-            parameters.Add("@Username", payload.GivenName, DbType.String, ParameterDirection.Input);
-            parameters.Add("@Password", payload.FamilyName, DbType.String, ParameterDirection.Input);
-
-            using var results = await _dbConnection.QueryMultipleAsync("sproc_UserLogin", parameters, commandType: CommandType.StoredProcedure);
-            var user = results.Read<User_ClaimsResponse>().SingleOrDefault() ?? null;
-
-            return user;
+            using var results = await _dbConnection.QueryMultipleAsync("sproc_GoogleLogin", parameters, commandType: CommandType.StoredProcedure);
+            var user = results.ReadSingleOrDefault<User_ClaimsResponse>() ?? null;
+            var result = (DbResult)parameters.Get<int>("@Result");
+            return (result, user);
         }
 
         public async Task<User_ClaimsResponse> GetGoogleLoginDetails(string Email)

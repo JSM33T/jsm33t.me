@@ -16,9 +16,9 @@
 				<div class="position-relative">
 					<i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
 					<div class="password-toggle">
-						<input class="form-control form-control-lg ps-5" formControlName="password" type="password" placeholder="Password" required #passwordInput/>
+						<input class="form-control form-control-lg ps-5" formControlName="password" type="password" placeholder="Password" required #passwordInput />
 						<label class="password-toggle-btn" aria-label="Show/hide password">
-							<input class="password-toggle-check" type="checkbox"   (click)="togglePasswordVisibility(passwordInput)"/>
+							<input class="password-toggle-check" type="checkbox" (click)="togglePasswordVisibility(passwordInput)" />
 							<span class="password-toggle-indicator"></span>
 						</label>
 					</div>
@@ -40,11 +40,11 @@
 		<h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your social account</h2>
 		<div class="row row-cols-1 row-cols-sm-2 gy-3">
 			<div class="col">
-				<a class="btn btn-icon btn-outline-secondary btn-google btn-lg w-100 disabled" href="#">
+				<a class="btn btn-icon btn-outline-secondary btn-google btn-lg w-100" type="button" (click)="googleLoginButton()">
 					<i class="ai-google fs-xl me-2"></i>
 					Google
 				</a>
-                <!-- <asl-google-signin-button type='standard' size='medium'></asl-google-signin-button> -->
+			
 			</div>
 			<div class="col">
 				<a class="btn btn-icon btn-outline-secondary btn-facebook btn-lg w-100 disabled" href="#">
@@ -55,3 +55,26 @@
 		</div>
 	</form>
 </div>
+
+<div id="googleBtn" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog" role="document" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">The Ugly Google button</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-primary">
+            <small class="pb-2">
+            As i am unable to override this ugly looking icon i am using a separate modal to avoid ruining my login screen. if you know how to do it please raise an issue and help me out!!
+            </small>
+            <asl-google-signin-button type="icon" size="large" theme="filled_black" shape="pill" text="signin_with" logo_alignment="left" class="dark-theme"></asl-google-signin-button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
