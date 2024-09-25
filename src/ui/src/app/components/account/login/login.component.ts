@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
 
     onLoginSuccess() {
         closeAllModals();
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/defaultPage';
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
         this.router.navigateByUrl(decodeURIComponent(returnUrl));  // Decode it just in case
       }
 }
