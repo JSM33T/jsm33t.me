@@ -42,6 +42,8 @@ CREATE TABLE [dbo].[tblUsers]
 
 	DateEdited      DATETIME			NOT NULL DEFAULT GETDATE(),
 
+    CreationMode    NVARCHAR(64)        NOT NULL DEFAULT 'email'
+
 	---------------------
 	--   CONSTRAINTS   --
 	---------------------

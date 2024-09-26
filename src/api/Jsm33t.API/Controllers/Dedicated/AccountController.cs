@@ -63,7 +63,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                             new Claim("firstname", userClaims.FirstName),
                             new Claim("lastname", userClaims.LastName),
                             new Claim("avatar", userClaims.Avatar),
-                            new Claim("mode", "google"),
+                            new Claim("authMode", userClaims.AuthMode),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 
@@ -114,7 +114,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                             new Claim("firstname", userClaims.FirstName),
                             new Claim("lastname", userClaims.LastName),
                             new Claim("avatar", userClaims.Avatar),
-                            new Claim("mode", "email"),
+                            new Claim("authMode", userClaims.AuthMode),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 

@@ -10,7 +10,7 @@ interface UserClaims {
 	username: string;
 	pfp: string;
 	firstname: string;
-    mode : string;
+    authMode : string;
 }
 
 @Component({
@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
 		username: '',
 		pfp: environment.cdnUrl + '/webassets/images/avatars/default.png',
 		firstname: '',
-        mode : ''
+        authMode : 'email'
 	};
 
 	logout() {
@@ -49,10 +49,8 @@ export class NavbarComponent implements OnInit {
 		const token = localStorage.getItem('token'); // Retrieve your JWT token from local storage
 		if (token) {
 			const decodedToken = jwtDecode(token) as any;
-			this.user.username = decodedToken.username;
-
-            console.log(this.user.mode)
-            if(decodedToken.mode == "google")
+			this.user.username = decodedToken.username;            
+            if(decodedToken.authMode == "google" || decodedToken.authMode == "both")
             {
                 this.user.pfp = decodedToken.avatar;
             }
