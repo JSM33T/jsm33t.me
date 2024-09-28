@@ -4,7 +4,24 @@
 		Don't have an account yet?&nbsp;&nbsp;
 		<a routerLink="/account/signup">Register here!</a>
 	</p>
-	<form class="" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+	<form class="" (ngSubmit)="onSubmit()" [formGroup]="loginForm">		<div class="row row-cols-1 row-cols-sm-2 gy-3">
+        <div class="col pb-4">
+            <a class="btn btn-icon btn-danger btn-google btn-lg w-100" type="button" (click)="googleLoginButton()">
+                <i class="ai-google fs-xl me-2"></i>
+                Google
+            </a>
+        
+        </div>
+        <div class="col pb-4">
+            <a class="btn btn-icon btn-outline-secondary btn-facebook btn-lg w-100 disabled" href="#">
+                <i class="ai-facebook fs-xl me-2"></i>
+                Facebook
+            </a>
+        </div>
+    </div>
+    
+		<!-- Sign in with social account -->
+		<h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your email</h2>
 		<div class="row row-cols-1 row-cols-sm-1 disabled">
 			<div class="col mb-6 pb-4">
 				<div class="position-relative">
@@ -36,23 +53,7 @@
 		</div>
 		<button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Sign in</button>
 
-		<!-- Sign in with social account -->
-		<h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your social account</h2>
-		<div class="row row-cols-1 row-cols-sm-2 gy-3">
-			<div class="col">
-				<a class="btn btn-icon btn-danger btn-google btn-lg w-100" type="button" (click)="googleLoginButton()">
-					<i class="ai-google fs-xl me-2"></i>
-					Google
-				</a>
-			
-			</div>
-			<div class="col">
-				<a class="btn btn-icon btn-outline-secondary btn-facebook btn-lg w-100 disabled" href="#">
-					<i class="ai-facebook fs-xl me-2"></i>
-					Facebook
-				</a>
-			</div>
-		</div>
+
 	</form>
 </div>
 

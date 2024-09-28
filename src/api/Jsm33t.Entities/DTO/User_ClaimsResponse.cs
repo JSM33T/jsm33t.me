@@ -13,6 +13,6 @@ namespace Jsm33t.Entities.DTO
         public string LastName { get; set; }
         public string Avatar { get; set; }
         public string Token { get; set; }
-        public string AuthMode { get; set; }
+        public string AuthMode { get; set; } = "email";
     }
 }

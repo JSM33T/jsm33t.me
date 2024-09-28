@@ -61,7 +61,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                             new Claim("username", userClaims.FirstName),
                             new Claim("role", userClaims.Role),
                             new Claim("firstname", userClaims.FirstName),
-                            new Claim("lastname", userClaims.LastName),
+                            new Claim("lastname", userClaims.LastName ?? string.Empty),
                             new Claim("avatar", userClaims.Avatar),
                             new Claim("authMode", userClaims.AuthMode),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
@@ -112,7 +112,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                             new Claim("username", userClaims.FirstName),
                             new Claim("role", userClaims.Role),
                             new Claim("firstname", userClaims.FirstName),
-                            new Claim("lastname", userClaims.LastName),
+                            new Claim("lastname", userClaims.LastName ?? string.Empty),
                             new Claim("avatar", userClaims.Avatar),
                             new Claim("authMode", userClaims.AuthMode),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
