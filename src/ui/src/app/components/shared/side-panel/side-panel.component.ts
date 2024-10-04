@@ -17,13 +17,24 @@ import { Location } from '@angular/common';
 	styleUrl: './side-panel.component.css',
 })
 export class SidePanelComponent implements OnInit {
-	constructor(private router: Router, private location: Location) {}
+	copyUrl() {
+		//alert(this.currentroute);
+		navigator.clipboard.writeText(this.currentroute);
+		this.copyText = "Copied";
+
+		setTimeout(() => {
+			this.copyText = "Copy"
+		}, 1000);
+
+	}
+	constructor(private router: Router, private location: Location) { }
 
 	ScrollbarState = ScrollbarState;
 	currentScrollState: ScrollbarState = ScrollbarState.Disable;
 	isAnimationEnabled: boolean = true;
 	scrollState: string = 'disable';
 	currentroute: string = '/';
+	copyText : string = "Copy"
 
 	ngOnInit(): void {
 		//audioRequestService.requestAudioPlay("https://cdn.jsm33t.me/webassets/floatinggarden.mp3");
@@ -105,9 +116,16 @@ export class SidePanelComponent implements OnInit {
 		localStorage.setItem('scrollbar', 'skinny');
 	}
 
+	// shareModal() {
+	// 	this.currentroute = this.location.prepareExternalUrl(this.location.path());
+	// 	console.log(this.currentroute);
+	// 	//openExistingModal("shareModal");
+	// }
+
 	shareModal() {
-		this.currentroute = this.location.prepareExternalUrl(this.location.path());
-		console.log(this.currentroute);
-		//openExistingModal("shareModal");
-	}
+		const baseUrl = window.location.origin; // Gets the base URL (e.g., https://example.com)
+		
+		this.currentroute = baseUrl + this.location.prepareExternalUrl(this.location.path());
+
+	  }
 }

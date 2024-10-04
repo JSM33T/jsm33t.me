@@ -140,9 +140,9 @@
                 <button class="btn btn-secondary w-100 w-sm-auto mb-3 mb-sm-0" type="button" data-bs-dismiss="modal">
                     Close
                 </button>
-                <button class="btn btn-primary w-100 w-sm-auto ms-sm-3" type="button" id="copy-btn">
+                <button class="btn btn-primary w-100 w-sm-auto ms-sm-3" (click)="copyUrl()" type="button" id="copy-btn">
                     <i class="ai-copy me-2 ms-n1"></i>
-                    Copy
+                    {{copyText}}
                 </button>
             </div>
         </div>
