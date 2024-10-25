@@ -44,8 +44,8 @@ CREATE TABLE [dbo].[tblUsers]
 
     CreationMode    NVARCHAR(64)        NOT NULL DEFAULT 'email'
 
-	---------------------
-	--   CONSTRAINTS   --
+	-----------------------
+	--   CONSTRAINTS   ----
 	---------------------
 
     CONSTRAINT      PK_UserTable PRIMARY KEY (Id),
