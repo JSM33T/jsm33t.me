@@ -3,9 +3,7 @@ using Jsm33t.Entities.Shared;
 using Jsm33t.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Options;
-using System.Diagnostics;
 using System.Reflection;
 
 namespace Jsm33t.API.Controllers
@@ -37,25 +35,6 @@ namespace Jsm33t.API.Controllers
 
                 return (statCode, userClaims, message, errors);
             }, MethodBase.GetCurrentMethod().Name);
-        }
-
-        [HttpPost("kill")]
-        [Authorize(Roles = "admin")]
-        public IActionResult Restart()
-        {
-            string appPath = _hostingEnvironment.ContentRootPath;
-
-            ProcessStartInfo info = new()
-            {
-                FileName = System.Reflection.Assembly.GetEntryAssembly().Location,
-                Arguments = string.Join(" ", Environment.GetCommandLineArgs().Skip(1))
-            };
-
-            Process.Start(info);
-
-            Environment.Exit(0);
-
-            return Ok("Restarting the application");
         }
 
         [HttpPost("sendEmail")]
