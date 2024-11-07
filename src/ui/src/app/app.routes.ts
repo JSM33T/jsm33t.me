@@ -23,14 +23,6 @@ export const routes: Route[] = [
 		loadComponent: () => import('./components/blogs/view/view.component').then((m) => m.ViewComponent),
 	},
 	{
-		path: 'artifacts',
-		loadComponent: () => import('./components/artifacts/artifacts.component').then((m) => m.ArtifactsComponent),
-	},
-	{
-		path: 'artifact/:type/:slug',
-		loadComponent: () => import('./components/artifacts/view/view.component').then((m) => m.ViewComponent),
-	},
-	{
 		path: 'studio',
 		loadComponent: () => import('./components/studio/studio.component').then((m) => m.StudioComponent),
 		loadChildren: () => import('./components/studio/studio.routes').then((m) => m.STUDIO_ROUTES),
