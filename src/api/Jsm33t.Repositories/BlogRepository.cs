@@ -68,7 +68,7 @@ namespace Jsm33t.Repositories
             (SELECT COUNT(*) FROM tblBlogs bm WHERE bm.CategoryId = c.Id) AS BlogCount
             FROM 
             tblBlogCategories c
-";
+            ";
 
             var categories = await dbConnection.QueryAsync<BlogCategory>(query);
             return categories.ToList();

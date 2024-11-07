@@ -23,7 +23,7 @@ namespace Jsm33t.Services
                 Host = _smtpConfig.Server,
                 Port = _smtpConfig.Port,
                 EnableSsl = _smtpConfig.EnableSSL,
-                Credentials = new NetworkCredential(_smtpConfig.Username, _smtpConfig.Password) // replace with your SMTP username and password
+                Credentials = new NetworkCredential(_smtpConfig.Username, _smtpConfig.Password)
             };
 
         }

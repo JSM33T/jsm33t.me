@@ -36,7 +36,7 @@ export class BlogComponent implements OnInit, OnDestroy {
 		private httpService: HttpService,
 		private route: ActivatedRoute,
 		private responseHandler: ResponseHandlerService,
-		private datePipe: DatePipe,
+		private datePipe: DatePipe
 	) {}
 
 	blogRequest = {
