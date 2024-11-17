@@ -181,6 +181,7 @@ namespace Jsm33t.API.Controllers.Dedicated
         #region Get like status
         public async Task<IActionResult> GetLikeStatus(string slug)
         {
+            string methodName = MethodBase.GetCurrentMethod().Name;
             return await ExecuteActionAsync(async () =>
             {
                 int statusCode = StatusCodes.Status200OK;
@@ -202,7 +203,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                 };
 
                 return (statusCode, likeData, message, hints);
-            }, MethodBase.GetCurrentMethod().Name);
+            }, methodName);
         }
         #endregion
 

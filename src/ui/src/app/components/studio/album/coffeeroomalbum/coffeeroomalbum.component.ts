@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import initAOS from '../../../../library/invokers/animate-on-scroll';
 import { audioRequestService } from '../../../shared/audio-player/audio-player.component';
 import { NgFor } from '@angular/common';
@@ -12,13 +12,18 @@ import { ParallaxService } from '../../../../services/parallax.service';
 	templateUrl: './coffeeroomalbum.component.html',
 	styleUrl: './coffeeroomalbum.component.css',
 })
-export class CoffeeroomalbumComponent implements OnInit {
+export class CoffeeroomalbumComponent implements OnInit, OnDestroy {
 	constructor(private parallaxService: ParallaxService) {}
 
 	ngOnInit(): void {
 		initAOS();
 		this.parallaxService.initParallax('coverparallax');
 	}
+
+    ngOnDestroy(): void {
+            this.parallaxService.destroyParallax('scene');
+    }
+
 	baseadd: string = environment.cdnUrl + '';
 
 	playA() {

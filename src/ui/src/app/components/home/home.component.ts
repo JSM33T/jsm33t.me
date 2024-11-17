@@ -20,23 +20,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 	constructor(private parallaxService: ParallaxService) {}
 
 	ngOnInit(): void {
-		this.initAOS();
+        initAOS();
 		this.parallaxService.initParallax('scene');
 	}
 
 	ngOnDestroy(): void {
-		this.cleanAOS();
+		cleanAOS();
 		this.parallaxService.destroyParallax('scene');
 	}
 
-	private initAOS(): void {
-		initAOS();
-	}
-
-	private cleanAOS(): void {
-		// Clean up AOS
-		cleanAOS();
-	}
+	
 
 	// private initParallax(): void {
 	//     const scene = document.getElementById('scene') as HTMLElement;

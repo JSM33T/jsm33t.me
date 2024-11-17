@@ -13,4 +13,8 @@ export const STUDIO_ROUTES: Routes = [
 		path: 'singularity',
 		loadComponent: () => import('./single/singularity/singularity.component').then((m) => m.SingularityComponent),
 	},
+    {
+		path: 'features',
+		loadComponent: () => import('./features/features.component').then((m) => m.FeaturesComponent),
+	},
 ];
