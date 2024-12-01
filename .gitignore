@@ -4,3 +4,4 @@ src/api/.vs/
 .vs/
 ftp_config.yml
 dx/
+/src/api/Jsm33t.API/appsettings.Development.json
