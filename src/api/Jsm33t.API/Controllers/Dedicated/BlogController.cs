@@ -69,6 +69,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                     BlogDetails.DateAdded = Blog.DateAdded;
                     BlogDetails.Id = Blog.Id;
                     BlogDetails.Tags = Blog.Tags;
+                   // BlogDetails.Content = await _httpService.GetFileContentAsync(filePath);
                     BlogDetails.Content = await _httpService.GetFileContentAsync(filePath);
                     statusCode = StatusCodes.Status200OK;
                     BlogDetails.Authors = await _BlogRepo.GetBlogAuthorsByBlogId(BlogDetails.Id);

@@ -45,9 +45,9 @@ namespace Jsm33t.API.Controllers.Dedicated
                     Audience = new[] { config.CurrentValue.logins.GoogleClientId }
                 };
 
-                 Payload payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken, settings);
+                Payload payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken, settings);
 
-                (DbResult res,userClaims) = await _userRepo.GoogleLogin(payload);
+                (DbResult res, userClaims) = await _userRepo.GoogleLogin(payload);
 
                 //userClaims = await _userRepo.GetGoogleLoginDetails(payload.Email);
 
@@ -83,7 +83,7 @@ namespace Jsm33t.API.Controllers.Dedicated
                 message = "Logged In..";
 
                 return (statCode, userClaims, message, hints);
-            }, MethodBase.GetCurrentMethod().Name);
+            }, "GoogleLogin");
         }
 
         [HttpPost("login")]
